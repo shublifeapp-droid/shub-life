@@ -7,10 +7,10 @@ export const Route = createFileRoute("/app")({
 
 const tabs = [
   { to: "/app", label: "Home", icon: Home, exact: true },
-  { to: "/app/evolucao", label: "Evolução", icon: TrendingUp },
-  { to: "/app/treinos", label: "Treinos", icon: Dumbbell },
-  { to: "/app/comunidade", label: "Comunidade", icon: Users },
-  { to: "/app/perfil", label: "Perfil", icon: User },
+  { to: "/app/evolucao", label: "Evolução", icon: TrendingUp, exact: false },
+  { to: "/app/treinos", label: "Treinos", icon: Dumbbell, exact: false },
+  { to: "/app/comunidade", label: "Comunidade", icon: Users, exact: false },
+  { to: "/app/perfil", label: "Perfil", icon: User, exact: false },
 ] as const;
 
 function AppLayout() {
