@@ -3,6 +3,8 @@ import {
   Zap, DollarSign, Wallet, Users, ArrowRight, CheckCircle2, 
   ChevronRight, Star, ShieldCheck, TrendingUp
 } from "lucide-react";
+import { toast } from "sonner";
+
 
 export const Route = createFileRoute("/app/comunidade")({
   component: AffiliateLanding,
