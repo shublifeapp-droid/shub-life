@@ -14,7 +14,316 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_insights: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          content: string
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      challenge_participations: {
+        Row: {
+          challenge_id: string
+          created_at: string | null
+          id: string
+          progress_percent: number | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          challenge_id: string
+          created_at?: string | null
+          id?: string
+          progress_percent?: number | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          challenge_id?: string
+          created_at?: string | null
+          id?: string
+          progress_percent?: number | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_participations_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      challenges: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          end_date: string | null
+          id: string
+          start_date: string | null
+          title: string
+          type: string | null
+          xp_reward: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          start_date?: string | null
+          title: string
+          type?: string | null
+          xp_reward?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          start_date?: string | null
+          title?: string
+          type?: string | null
+          xp_reward?: number | null
+        }
+        Relationships: []
+      }
+      pillars_data: {
+        Row: {
+          agua: number | null
+          created_at: string | null
+          date: string
+          humor: number | null
+          id: string
+          nutricao: number | null
+          sono: number | null
+          total_score: number | null
+          treino: number | null
+          user_id: string
+        }
+        Insert: {
+          agua?: number | null
+          created_at?: string | null
+          date?: string
+          humor?: number | null
+          id?: string
+          nutricao?: number | null
+          sono?: number | null
+          total_score?: number | null
+          treino?: number | null
+          user_id: string
+        }
+        Update: {
+          agua?: number | null
+          created_at?: string | null
+          date?: string
+          humor?: number | null
+          id?: string
+          nutricao?: number | null
+          sono?: number | null
+          total_score?: number | null
+          treino?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string | null
+          goals: string[] | null
+          id: string
+          nickname: string | null
+          shub_score: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          goals?: string[] | null
+          id: string
+          nickname?: string | null
+          shub_score?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string | null
+          goals?: string[] | null
+          id?: string
+          nickname?: string | null
+          shub_score?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      sleep_logs: {
+        Row: {
+          awake_minutes: number | null
+          created_at: string | null
+          date: string
+          deep_sleep_minutes: number | null
+          id: string
+          light_sleep_minutes: number | null
+          rem_sleep_minutes: number | null
+          score: number | null
+          stages_data: Json | null
+          total_minutes: number | null
+          user_id: string
+        }
+        Insert: {
+          awake_minutes?: number | null
+          created_at?: string | null
+          date?: string
+          deep_sleep_minutes?: number | null
+          id?: string
+          light_sleep_minutes?: number | null
+          rem_sleep_minutes?: number | null
+          score?: number | null
+          stages_data?: Json | null
+          total_minutes?: number | null
+          user_id: string
+        }
+        Update: {
+          awake_minutes?: number | null
+          created_at?: string | null
+          date?: string
+          deep_sleep_minutes?: number | null
+          id?: string
+          light_sleep_minutes?: number | null
+          rem_sleep_minutes?: number | null
+          score?: number | null
+          stages_data?: Json | null
+          total_minutes?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      water_logs: {
+        Row: {
+          amount_ml: number
+          created_at: string | null
+          date: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          amount_ml: number
+          created_at?: string | null
+          date?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          amount_ml?: number
+          created_at?: string | null
+          date?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      workout_logs: {
+        Row: {
+          calories_burned: number | null
+          created_at: string | null
+          date: string
+          duration_actual: number | null
+          id: string
+          notes: string | null
+          user_id: string
+          workout_id: string | null
+        }
+        Insert: {
+          calories_burned?: number | null
+          created_at?: string | null
+          date?: string
+          duration_actual?: number | null
+          id?: string
+          notes?: string | null
+          user_id: string
+          workout_id?: string | null
+        }
+        Update: {
+          calories_burned?: number | null
+          created_at?: string | null
+          date?: string
+          duration_actual?: number | null
+          id?: string
+          notes?: string | null
+          user_id?: string
+          workout_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workout_logs_workout_id_fkey"
+            columns: ["workout_id"]
+            isOneToOne: false
+            referencedRelation: "workouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workouts: {
+        Row: {
+          category: string | null
+          created_at: string | null
+          description: string | null
+          duration_minutes: number | null
+          estimated_calories: number | null
+          exercises: Json | null
+          id: string
+          intensity: string | null
+          title: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          estimated_calories?: number | null
+          exercises?: Json | null
+          id?: string
+          intensity?: string | null
+          title: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          estimated_calories?: number | null
+          exercises?: Json | null
+          id?: string
+          intensity?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
