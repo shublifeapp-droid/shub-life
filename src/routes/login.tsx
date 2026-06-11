@@ -1,4 +1,9 @@
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export const Route = createFileRoute("/login")({
   component: Login,
@@ -6,6 +11,47 @@ export const Route = createFileRoute("/login")({
 
 function Login() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success("Bem-vindo de volta!");
+        navigate({ to: "/app" });
+      }
+    } catch (error) {
+      toast.error("Erro ao realizar login");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOAuth = async (provider: "google" | "apple") => {
+    try {
+      const result = await lovable.auth.signInWithOAuth(provider, {
+        redirect_uri: window.location.origin + "/app",
+      });
+
+      if (result.error) {
+        toast.error(result.error.message);
+      }
+    } catch (error) {
+      toast.error("Erro ao conectar");
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-background px-6 pb-10 pt-14">
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "var(--gradient-radial-neon)" }} />
@@ -23,12 +69,23 @@ function Login() {
           <p className="mt-2 text-sm text-muted-foreground">Continue sua evolução de onde parou.</p>
         </div>
 
-        <form
-          className="mt-10 space-y-4"
-          onSubmit={(e) => { e.preventDefault(); navigate({ to: "/app" }); }}
-        >
-          <Field label="E-mail" type="email" placeholder="voce@shub.life" />
-          <Field label="Senha" type="password" placeholder="••••••••" />
+        <form className="mt-10 space-y-4" onSubmit={handleLogin}>
+          <Field
+            label="E-mail"
+            type="email"
+            placeholder="voce@shub.life"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <Field
+            label="Senha"
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
           <div className="flex justify-end">
             <button type="button" className="text-xs text-neon">Esqueci minha senha</button>
@@ -36,9 +93,10 @@ function Login() {
 
           <button
             type="submit"
-            className="mt-4 w-full rounded-full bg-neon py-4 text-sm font-semibold text-neon-foreground glow-neon active:scale-[0.98] transition-transform"
+            disabled={loading}
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-neon py-4 text-sm font-semibold text-neon-foreground glow-neon active:scale-[0.98] transition-transform disabled:opacity-50"
           >
-            Entrar
+            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Entrar"}
           </button>
         </form>
 
@@ -49,8 +107,8 @@ function Login() {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <SocialBtn label="Apple" />
-          <SocialBtn label="Google" />
+          <SocialBtn label="Apple" onClick={() => handleOAuth("apple")} />
+          <SocialBtn label="Google" onClick={() => handleOAuth("google")} />
         </div>
 
         <p className="mt-10 text-center text-xs text-muted-foreground">
@@ -74,9 +132,13 @@ function Field({ label, ...props }: React.InputHTMLAttributes<HTMLInputElement> 
   );
 }
 
-function SocialBtn({ label }: { label: string }) {
+function SocialBtn({ label, onClick }: { label: string; onClick?: () => void }) {
   return (
-    <button type="button" className="rounded-2xl border border-border bg-surface py-3 text-sm font-medium transition active:scale-95 hover:border-neon/40">
+    <button
+      type="button"
+      onClick={onClick}
+      className="rounded-2xl border border-border bg-surface py-3 text-sm font-medium transition active:scale-95 hover:border-neon/40"
+    >
       {label}
     </button>
   );
