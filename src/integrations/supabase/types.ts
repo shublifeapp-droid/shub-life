@@ -118,6 +118,7 @@ export type Database = {
           partner_id: string
           title: string
           type: string | null
+          updated_at: string | null
         }
         Insert: {
           created_at?: string | null
@@ -127,6 +128,7 @@ export type Database = {
           partner_id: string
           title: string
           type?: string | null
+          updated_at?: string | null
         }
         Update: {
           created_at?: string | null
@@ -136,6 +138,7 @@ export type Database = {
           partner_id?: string
           title?: string
           type?: string | null
+          updated_at?: string | null
         }
         Relationships: [
           {
@@ -278,6 +281,7 @@ export type Database = {
           partner_id: string
           referred_user_id: string
           status: string | null
+          updated_at: string | null
         }
         Insert: {
           commission_rate?: number | null
@@ -287,6 +291,7 @@ export type Database = {
           partner_id: string
           referred_user_id: string
           status?: string | null
+          updated_at?: string | null
         }
         Update: {
           commission_rate?: number | null
@@ -296,6 +301,7 @@ export type Database = {
           partner_id?: string
           referred_user_id?: string
           status?: string | null
+          updated_at?: string | null
         }
         Relationships: [
           {
@@ -359,6 +365,7 @@ export type Database = {
           reference_id: string | null
           status: string | null
           type: string
+          updated_at: string | null
         }
         Insert: {
           amount: number
@@ -369,6 +376,7 @@ export type Database = {
           reference_id?: string | null
           status?: string | null
           type: string
+          updated_at?: string | null
         }
         Update: {
           amount?: number
@@ -379,6 +387,7 @@ export type Database = {
           reference_id?: string | null
           status?: string | null
           type?: string
+          updated_at?: string | null
         }
         Relationships: [
           {
