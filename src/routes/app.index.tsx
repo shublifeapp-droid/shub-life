@@ -1,9 +1,12 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Bell, Dumbbell, Droplets, Moon, Smile, Apple, Flame, ChevronRight,
   Sparkles, TrendingUp, Trophy, Play, Activity as ActivityIcon, Brain,
+  LogOut,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/app/")({
   component: HomeScreen,
@@ -30,15 +33,35 @@ function getGreeting() {
 }
 
 function HomeScreen() {
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState("Lucas");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        navigate({ to: "/login" });
+        return;
+      }
+      if (user.user_metadata?.nickname) {
+        setUserName(user.user_metadata.nickname);
+      } else if (user.user_metadata?.full_name) {
+        setUserName(user.user_metadata.full_name.split(" ")[0]);
+      }
+    };
+    fetchUser();
+  }, [navigate]);
+
   return (
     <div className="relative">
+
       {/* ambient background */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] overflow-hidden">
         <div className="absolute -top-40 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-neon/10 blur-3xl" />
       </div>
 
       <div className="relative px-5 pt-12">
-        <Header />
+        <Header name={userName} />
         <ScoreHero score={SHUB_SCORE} />
         <PillarsRow />
         <TrainingToday />
@@ -61,25 +84,36 @@ function HomeScreen() {
 
 /* ───────────────────────────── HEADER ───────────────────────────── */
 
-function Header() {
+function Header({ name }: { name: string }) {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast.success("Sessão encerrada");
+    navigate({ to: "/login" });
+  };
+
   return (
     <div className="flex items-center justify-between fade-up">
       <div className="flex items-center gap-3">
         <div className="relative">
-          <div className="grid h-11 w-11 place-items-center rounded-full border border-neon/40 bg-surface-elevated text-xs font-bold">
-            LS
+          <div className="grid h-11 w-11 place-items-center rounded-full border border-neon/40 bg-surface-elevated text-xs font-bold uppercase">
+            {name.substring(0, 2)}
           </div>
           <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-background bg-neon glow-neon" />
         </div>
         <div>
           <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{getGreeting()}</p>
-          <h1 className="font-display text-lg font-bold leading-tight">Lucas <span className="text-neon">⚡</span></h1>
+          <h1 className="font-display text-lg font-bold leading-tight">{name} <span className="text-neon">⚡</span></h1>
         </div>
       </div>
 
       <div className="flex items-center gap-2">
-        <button className="grid h-10 w-10 place-items-center rounded-full border border-border bg-surface">
-          <ActivityIcon className="h-4 w-4" />
+        <button
+          onClick={handleLogout}
+          className="grid h-10 w-10 place-items-center rounded-full border border-border bg-surface text-muted-foreground hover:text-destructive transition-colors"
+        >
+          <LogOut className="h-4 w-4" />
         </button>
         <button className="relative grid h-10 w-10 place-items-center rounded-full border border-border bg-surface">
           <Bell className="h-4 w-4" />
