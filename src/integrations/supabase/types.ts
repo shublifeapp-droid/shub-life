@@ -109,6 +109,97 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_notifications: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          partner_id: string
+          title: string
+          type: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          partner_id: string
+          title: string
+          type?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          partner_id?: string
+          title?: string
+          type?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_notifications_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partner_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partner_profiles: {
+        Row: {
+          active_premium_count: number | null
+          affiliate_code: string | null
+          created_at: string | null
+          current_balance: number | null
+          id: string
+          partner_level: number | null
+          pending_balance: number | null
+          status: string | null
+          students_count: number | null
+          total_earned: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          active_premium_count?: number | null
+          affiliate_code?: string | null
+          created_at?: string | null
+          current_balance?: number | null
+          id: string
+          partner_level?: number | null
+          pending_balance?: number | null
+          status?: string | null
+          students_count?: number | null
+          total_earned?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          active_premium_count?: number | null
+          affiliate_code?: string | null
+          created_at?: string | null
+          current_balance?: number | null
+          id?: string
+          partner_level?: number | null
+          pending_balance?: number | null
+          status?: string | null
+          students_count?: number | null
+          total_earned?: number | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "partner_profiles_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pillars_data: {
         Row: {
           agua: number | null
@@ -181,6 +272,47 @@ export type Database = {
         }
         Relationships: []
       }
+      referrals: {
+        Row: {
+          commission_rate: number | null
+          created_at: string | null
+          id: string
+          is_lifetime: boolean | null
+          partner_id: string
+          referred_user_id: string
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          commission_rate?: number | null
+          created_at?: string | null
+          id?: string
+          is_lifetime?: boolean | null
+          partner_id: string
+          referred_user_id: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          commission_rate?: number | null
+          created_at?: string | null
+          id?: string
+          is_lifetime?: boolean | null
+          partner_id?: string
+          referred_user_id?: string
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referrals_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partner_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       sleep_logs: {
         Row: {
           awake_minutes: number | null
@@ -222,6 +354,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      wallet_transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          description: string | null
+          id: string
+          partner_id: string
+          reference_id: string | null
+          status: string | null
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          partner_id: string
+          reference_id?: string | null
+          status?: string | null
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          partner_id?: string
+          reference_id?: string | null
+          status?: string | null
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_transactions_partner_id_fkey"
+            columns: ["partner_id"]
+            isOneToOne: false
+            referencedRelation: "partner_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       water_logs: {
         Row: {
@@ -329,7 +505,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_partner_stats: { Args: { p_id: string }; Returns: Json }
     }
     Enums: {
       [_ in never]: never
