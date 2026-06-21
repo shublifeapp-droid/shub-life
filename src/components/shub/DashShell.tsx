@@ -36,7 +36,7 @@ export function DashShell({ title, subtitle, items, children }: Props) {
     <div className="min-h-screen bg-background text-foreground">
       {/* Sidebar desktop */}
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-border bg-surface px-4 py-6 md:flex md:flex-col">
-        <Logo className="h-8 w-auto" />
+        <Logo className="h-8 w-auto self-start object-contain" />
         <div className="mt-6">
           <p className="text-[10px] uppercase tracking-[0.3em] text-neon">{title}</p>
           {subtitle && <p className="mt-1 text-xs text-muted-foreground">{subtitle}</p>}
