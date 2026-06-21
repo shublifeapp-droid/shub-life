@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Play, Clock, Flame, Dumbbell, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useRealtimeInvalidate } from "@/hooks/useRealtimeInvalidate";
 import { EmptyState } from "@/components/shub/EmptyState";
 
 export const Route = createFileRoute("/app/treinos")({
