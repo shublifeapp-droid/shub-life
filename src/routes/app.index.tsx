@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useRealtimeInvalidate } from "@/hooks/useRealtimeInvalidate";
 import { EmptyState } from "@/components/shub/EmptyState";
 import { toast } from "sonner";
 
