@@ -22,6 +22,8 @@ const items: DashNavItem[] = [
   { to: "/pro", label: "Visão geral", icon: LayoutDashboard, exact: true },
   { to: "/pro/alunos", label: "Alunos", icon: Users },
   { to: "/pro/treinos", label: "Treinos", icon: Dumbbell },
+  { to: "/pro/contratos", label: "Contratos", icon: FileText },
+  { to: "/pro/cobrancas", label: "Cobranças", icon: Receipt },
   { to: "/pro/financeiro", label: "Financeiro", icon: DollarSign },
   { to: "/pro/notificacoes", label: "Notificações", icon: Bell },
 ];
