@@ -5,6 +5,7 @@ import type { ComponentType } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { EmptyState } from "@/components/shub/EmptyState";
+import { useRealtimeInvalidate } from "@/hooks/useRealtimeInvalidate";
 
 export const Route = createFileRoute("/app/notificacoes")({
   component: NotificacoesPage,
@@ -40,6 +41,7 @@ function timeAgo(iso: string): string {
 
 function NotificacoesPage() {
   const { user } = useCurrentUser();
+  useRealtimeInvalidate("notifications", ["notifications", user?.id], user ? `user_id=eq.${user.id}` : undefined);
   const { data, isLoading } = useQuery({
     queryKey: ["notifications", user?.id],
     queryFn: async (): Promise<NotificationRow[]> => {
