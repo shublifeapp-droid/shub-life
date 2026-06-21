@@ -9,12 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ProRouteImport } from './routes/pro'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProIndexRouteImport } from './routes/pro.index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as ProTreinosRouteImport } from './routes/pro.treinos'
+import { Route as ProNotificacoesRouteImport } from './routes/pro.notificacoes'
+import { Route as ProFinanceiroRouteImport } from './routes/pro.financeiro'
+import { Route as ProAlunosRouteImport } from './routes/pro.alunos'
 import { Route as AppTreinosRouteImport } from './routes/app.treinos'
 import { Route as AppScoreRouteImport } from './routes/app.score'
 import { Route as AppRankingsRouteImport } from './routes/app.rankings'
@@ -24,10 +32,22 @@ import { Route as AppEvolucaoRouteImport } from './routes/app.evolucao'
 import { Route as AppDesafiosRouteImport } from './routes/app.desafios'
 import { Route as AppComunidadeRouteImport } from './routes/app.comunidade'
 import { Route as AppAssinaturaRouteImport } from './routes/app.assinatura'
+import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
+import { Route as AdminNotificacoesRouteImport } from './routes/admin.notificacoes'
+import { Route as AdminFinanceiroRouteImport } from './routes/admin.financeiro'
+import { Route as AdminConteudoRouteImport } from './routes/admin.conteudo'
+import { Route as AdminConfiguracoesRouteImport } from './routes/admin.configuracoes'
+import { Route as AdminAuditoriaRouteImport } from './routes/admin.auditoria'
 import { Route as AppRunIndexRouteImport } from './routes/app.run.index'
+import { Route as ProAlunosIdRouteImport } from './routes/pro.alunos.$id'
 import { Route as AppTreinosIdRouteImport } from './routes/app.treinos.$id'
 import { Route as AppRunIniciarRouteImport } from './routes/app.run.iniciar'
 
+const ProRoute = ProRouteImport.update({
+  id: '/pro',
+  path: '/pro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
@@ -48,15 +68,50 @@ const AppRoute = AppRouteImport.update({
   path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProIndexRoute = ProIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProRoute,
+} as any)
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ProTreinosRoute = ProTreinosRouteImport.update({
+  id: '/treinos',
+  path: '/treinos',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProNotificacoesRoute = ProNotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProFinanceiroRoute = ProFinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProAlunosRoute = ProAlunosRouteImport.update({
+  id: '/alunos',
+  path: '/alunos',
+  getParentRoute: () => ProRoute,
 } as any)
 const AppTreinosRoute = AppTreinosRouteImport.update({
   id: '/treinos',
@@ -103,10 +158,45 @@ const AppAssinaturaRoute = AppAssinaturaRouteImport.update({
   path: '/assinatura',
   getParentRoute: () => AppRoute,
 } as any)
+const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
+  id: '/usuarios',
+  path: '/usuarios',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNotificacoesRoute = AdminNotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFinanceiroRoute = AdminFinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminConteudoRoute = AdminConteudoRouteImport.update({
+  id: '/conteudo',
+  path: '/conteudo',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminConfiguracoesRoute = AdminConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAuditoriaRoute = AdminAuditoriaRouteImport.update({
+  id: '/auditoria',
+  path: '/auditoria',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AppRunIndexRoute = AppRunIndexRouteImport.update({
   id: '/run/',
   path: '/run/',
   getParentRoute: () => AppRoute,
+} as any)
+const ProAlunosIdRoute = ProAlunosIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ProAlunosRoute,
 } as any)
 const AppTreinosIdRoute = AppTreinosIdRouteImport.update({
   id: '/$id',
@@ -121,10 +211,18 @@ const AppRunIniciarRoute = AppRunIniciarRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/app': typeof AppRouteWithChildren
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/pro': typeof ProRouteWithChildren
+  '/admin/auditoria': typeof AdminAuditoriaRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/conteudo': typeof AdminConteudoRoute
+  '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/notificacoes': typeof AdminNotificacoesRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
   '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
   '/app/desafios': typeof AppDesafiosRoute
@@ -134,9 +232,16 @@ export interface FileRoutesByFullPath {
   '/app/rankings': typeof AppRankingsRoute
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
+  '/pro/alunos': typeof ProAlunosRouteWithChildren
+  '/pro/financeiro': typeof ProFinanceiroRoute
+  '/pro/notificacoes': typeof ProNotificacoesRoute
+  '/pro/treinos': typeof ProTreinosRoute
+  '/admin/': typeof AdminIndexRoute
   '/app/': typeof AppIndexRoute
+  '/pro/': typeof ProIndexRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
+  '/pro/alunos/$id': typeof ProAlunosIdRoute
   '/app/run/': typeof AppRunIndexRoute
 }
 export interface FileRoutesByTo {
@@ -144,6 +249,12 @@ export interface FileRoutesByTo {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/admin/auditoria': typeof AdminAuditoriaRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/conteudo': typeof AdminConteudoRoute
+  '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/notificacoes': typeof AdminNotificacoesRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
   '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
   '/app/desafios': typeof AppDesafiosRoute
@@ -153,18 +264,33 @@ export interface FileRoutesByTo {
   '/app/rankings': typeof AppRankingsRoute
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
+  '/pro/alunos': typeof ProAlunosRouteWithChildren
+  '/pro/financeiro': typeof ProFinanceiroRoute
+  '/pro/notificacoes': typeof ProNotificacoesRoute
+  '/pro/treinos': typeof ProTreinosRoute
+  '/admin': typeof AdminIndexRoute
   '/app': typeof AppIndexRoute
+  '/pro': typeof ProIndexRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
+  '/pro/alunos/$id': typeof ProAlunosIdRoute
   '/app/run': typeof AppRunIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/app': typeof AppRouteWithChildren
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/pro': typeof ProRouteWithChildren
+  '/admin/auditoria': typeof AdminAuditoriaRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
+  '/admin/conteudo': typeof AdminConteudoRoute
+  '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/notificacoes': typeof AdminNotificacoesRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
   '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
   '/app/desafios': typeof AppDesafiosRoute
@@ -174,19 +300,34 @@ export interface FileRoutesById {
   '/app/rankings': typeof AppRankingsRoute
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
+  '/pro/alunos': typeof ProAlunosRouteWithChildren
+  '/pro/financeiro': typeof ProFinanceiroRoute
+  '/pro/notificacoes': typeof ProNotificacoesRoute
+  '/pro/treinos': typeof ProTreinosRoute
+  '/admin/': typeof AdminIndexRoute
   '/app/': typeof AppIndexRoute
+  '/pro/': typeof ProIndexRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
+  '/pro/alunos/$id': typeof ProAlunosIdRoute
   '/app/run/': typeof AppRunIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/app'
     | '/cadastro'
     | '/login'
     | '/onboarding'
+    | '/pro'
+    | '/admin/auditoria'
+    | '/admin/configuracoes'
+    | '/admin/conteudo'
+    | '/admin/financeiro'
+    | '/admin/notificacoes'
+    | '/admin/usuarios'
     | '/app/assinatura'
     | '/app/comunidade'
     | '/app/desafios'
@@ -196,9 +337,16 @@ export interface FileRouteTypes {
     | '/app/rankings'
     | '/app/score'
     | '/app/treinos'
+    | '/pro/alunos'
+    | '/pro/financeiro'
+    | '/pro/notificacoes'
+    | '/pro/treinos'
+    | '/admin/'
     | '/app/'
+    | '/pro/'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
+    | '/pro/alunos/$id'
     | '/app/run/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -206,6 +354,12 @@ export interface FileRouteTypes {
     | '/cadastro'
     | '/login'
     | '/onboarding'
+    | '/admin/auditoria'
+    | '/admin/configuracoes'
+    | '/admin/conteudo'
+    | '/admin/financeiro'
+    | '/admin/notificacoes'
+    | '/admin/usuarios'
     | '/app/assinatura'
     | '/app/comunidade'
     | '/app/desafios'
@@ -215,17 +369,32 @@ export interface FileRouteTypes {
     | '/app/rankings'
     | '/app/score'
     | '/app/treinos'
+    | '/pro/alunos'
+    | '/pro/financeiro'
+    | '/pro/notificacoes'
+    | '/pro/treinos'
+    | '/admin'
     | '/app'
+    | '/pro'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
+    | '/pro/alunos/$id'
     | '/app/run'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/app'
     | '/cadastro'
     | '/login'
     | '/onboarding'
+    | '/pro'
+    | '/admin/auditoria'
+    | '/admin/configuracoes'
+    | '/admin/conteudo'
+    | '/admin/financeiro'
+    | '/admin/notificacoes'
+    | '/admin/usuarios'
     | '/app/assinatura'
     | '/app/comunidade'
     | '/app/desafios'
@@ -235,22 +404,38 @@ export interface FileRouteTypes {
     | '/app/rankings'
     | '/app/score'
     | '/app/treinos'
+    | '/pro/alunos'
+    | '/pro/financeiro'
+    | '/pro/notificacoes'
+    | '/pro/treinos'
+    | '/admin/'
     | '/app/'
+    | '/pro/'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
+    | '/pro/alunos/$id'
     | '/app/run/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AppRoute: typeof AppRouteWithChildren
   CadastroRoute: typeof CadastroRoute
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRoute
+  ProRoute: typeof ProRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pro': {
+      id: '/pro'
+      path: '/pro'
+      fullPath: '/pro'
+      preLoaderRoute: typeof ProRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/onboarding': {
       id: '/onboarding'
       path: '/onboarding'
@@ -279,6 +464,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -286,12 +478,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pro/': {
+      id: '/pro/'
+      path: '/'
+      fullPath: '/pro/'
+      preLoaderRoute: typeof ProIndexRouteImport
+      parentRoute: typeof ProRoute
+    }
     '/app/': {
       id: '/app/'
       path: '/'
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/pro/treinos': {
+      id: '/pro/treinos'
+      path: '/treinos'
+      fullPath: '/pro/treinos'
+      preLoaderRoute: typeof ProTreinosRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/notificacoes': {
+      id: '/pro/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/pro/notificacoes'
+      preLoaderRoute: typeof ProNotificacoesRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/financeiro': {
+      id: '/pro/financeiro'
+      path: '/financeiro'
+      fullPath: '/pro/financeiro'
+      preLoaderRoute: typeof ProFinanceiroRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/alunos': {
+      id: '/pro/alunos'
+      path: '/alunos'
+      fullPath: '/pro/alunos'
+      preLoaderRoute: typeof ProAlunosRouteImport
+      parentRoute: typeof ProRoute
     }
     '/app/treinos': {
       id: '/app/treinos'
@@ -356,12 +590,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAssinaturaRouteImport
       parentRoute: typeof AppRoute
     }
+    '/admin/usuarios': {
+      id: '/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AdminUsuariosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/notificacoes': {
+      id: '/admin/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/admin/notificacoes'
+      preLoaderRoute: typeof AdminNotificacoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/financeiro': {
+      id: '/admin/financeiro'
+      path: '/financeiro'
+      fullPath: '/admin/financeiro'
+      preLoaderRoute: typeof AdminFinanceiroRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/conteudo': {
+      id: '/admin/conteudo'
+      path: '/conteudo'
+      fullPath: '/admin/conteudo'
+      preLoaderRoute: typeof AdminConteudoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/configuracoes': {
+      id: '/admin/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/admin/configuracoes'
+      preLoaderRoute: typeof AdminConfiguracoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/auditoria': {
+      id: '/admin/auditoria'
+      path: '/auditoria'
+      fullPath: '/admin/auditoria'
+      preLoaderRoute: typeof AdminAuditoriaRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/app/run/': {
       id: '/app/run/'
       path: '/run'
       fullPath: '/app/run/'
       preLoaderRoute: typeof AppRunIndexRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/pro/alunos/$id': {
+      id: '/pro/alunos/$id'
+      path: '/$id'
+      fullPath: '/pro/alunos/$id'
+      preLoaderRoute: typeof ProAlunosIdRouteImport
+      parentRoute: typeof ProAlunosRoute
     }
     '/app/treinos/$id': {
       id: '/app/treinos/$id'
@@ -379,6 +662,28 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AdminRouteChildren {
+  AdminAuditoriaRoute: typeof AdminAuditoriaRoute
+  AdminConfiguracoesRoute: typeof AdminConfiguracoesRoute
+  AdminConteudoRoute: typeof AdminConteudoRoute
+  AdminFinanceiroRoute: typeof AdminFinanceiroRoute
+  AdminNotificacoesRoute: typeof AdminNotificacoesRoute
+  AdminUsuariosRoute: typeof AdminUsuariosRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAuditoriaRoute: AdminAuditoriaRoute,
+  AdminConfiguracoesRoute: AdminConfiguracoesRoute,
+  AdminConteudoRoute: AdminConteudoRoute,
+  AdminFinanceiroRoute: AdminFinanceiroRoute,
+  AdminNotificacoesRoute: AdminNotificacoesRoute,
+  AdminUsuariosRoute: AdminUsuariosRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface AppTreinosRouteChildren {
   AppTreinosIdRoute: typeof AppTreinosIdRoute
@@ -424,12 +729,44 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface ProAlunosRouteChildren {
+  ProAlunosIdRoute: typeof ProAlunosIdRoute
+}
+
+const ProAlunosRouteChildren: ProAlunosRouteChildren = {
+  ProAlunosIdRoute: ProAlunosIdRoute,
+}
+
+const ProAlunosRouteWithChildren = ProAlunosRoute._addFileChildren(
+  ProAlunosRouteChildren,
+)
+
+interface ProRouteChildren {
+  ProAlunosRoute: typeof ProAlunosRouteWithChildren
+  ProFinanceiroRoute: typeof ProFinanceiroRoute
+  ProNotificacoesRoute: typeof ProNotificacoesRoute
+  ProTreinosRoute: typeof ProTreinosRoute
+  ProIndexRoute: typeof ProIndexRoute
+}
+
+const ProRouteChildren: ProRouteChildren = {
+  ProAlunosRoute: ProAlunosRouteWithChildren,
+  ProFinanceiroRoute: ProFinanceiroRoute,
+  ProNotificacoesRoute: ProNotificacoesRoute,
+  ProTreinosRoute: ProTreinosRoute,
+  ProIndexRoute: ProIndexRoute,
+}
+
+const ProRouteWithChildren = ProRoute._addFileChildren(ProRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
   AppRoute: AppRouteWithChildren,
   CadastroRoute: CadastroRoute,
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRoute,
+  ProRoute: ProRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
