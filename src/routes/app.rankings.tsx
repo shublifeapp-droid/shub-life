@@ -1,43 +1,48 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { MapPin, Building2, Users, User } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { MapPin, Building2, Users, User, Loader2, Trophy } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { EmptyState } from "@/components/shub/EmptyState";
 
 export const Route = createFileRoute("/app/rankings")({
   component: RankingsPage,
 });
 
 const tabs = [
-  { id: "cidade", label: "Cidade", icon: MapPin },
-  { id: "academia", label: "Academia", icon: Building2 },
-  { id: "grupos", label: "Grupos", icon: Users },
-  { id: "personais", label: "Personais", icon: User },
+  { id: "city", label: "Cidade", icon: MapPin },
+  { id: "gym", label: "Academia", icon: Building2 },
+  { id: "group", label: "Grupos", icon: Users },
+  { id: "personal", label: "Personais", icon: User },
 ] as const;
 
-const data: Record<string, { name: string; meta: string; score: number }[]> = {
-  cidade: [
-    { name: "Marina S.", meta: "São Paulo", score: 94 },
-    { name: "Rafael T.", meta: "São Paulo", score: 91 },
-    { name: "Você", meta: "São Paulo", score: 82 },
-    { name: "Carla M.", meta: "São Paulo", score: 80 },
-  ],
-  academia: [
-    { name: "Pedro L.", meta: "SmartFit Paulista", score: 96 },
-    { name: "Você", meta: "SmartFit Paulista", score: 82 },
-    { name: "Ana V.", meta: "SmartFit Paulista", score: 78 },
-  ],
-  grupos: [
-    { name: "Squad Alpha", meta: "12 membros", score: 88 },
-    { name: "Time Beta", meta: "8 membros", score: 84 },
-  ],
-  personais: [
-    { name: "Lucas Oliveira", meta: "32 alunos ativos", score: 92 },
-    { name: "Bianca Reis", meta: "28 alunos ativos", score: 89 },
-  ],
-};
+type ScopeId = (typeof tabs)[number]["id"];
+
+interface RankingRow {
+  user_id: string;
+  display_name: string | null;
+  meta: string | null;
+  score: number;
+}
 
 function RankingsPage() {
-  const [active, setActive] = useState<(typeof tabs)[number]["id"]>("cidade");
-  const rows = data[active];
+  const [active, setActive] = useState<ScopeId>("city");
+  const { user } = useCurrentUser();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["rankings", active],
+    queryFn: async (): Promise<RankingRow[]> => {
+      const { data, error } = await supabase
+        .from("rankings")
+        .select("user_id, display_name, meta, score")
+        .eq("scope", active)
+        .order("score", { ascending: false })
+        .limit(50);
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
 
   return (
     <div className="px-5 pt-12 pb-10">
@@ -64,34 +69,58 @@ function RankingsPage() {
         })}
       </div>
 
-      <div className="mt-5 card-premium overflow-hidden">
-        {rows.map((r, i) => {
-          const me = r.name === "Você";
-          return (
-            <div
-              key={i}
-              className={`flex items-center justify-between border-b border-border px-4 py-3 last:border-0 ${
-                me ? "bg-neon/5" : ""
-              }`}
-            >
-              <div className="flex min-w-0 items-center gap-3">
-                <span
-                  className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-xs font-bold ${
-                    i === 0 ? "bg-tier-gold text-background" : i === 1 ? "bg-tier-silver text-background" : i === 2 ? "bg-tier-bronze text-background" : "bg-secondary"
-                  }`}
-                >
-                  {i + 1}
-                </span>
-                <div className="min-w-0">
-                  <p className={`truncate text-sm ${me ? "font-bold text-neon" : "font-medium"}`}>{r.name}</p>
-                  <p className="truncate text-[10px] text-muted-foreground">{r.meta}</p>
+      {isLoading ? (
+        <div className="mt-10 flex justify-center text-muted-foreground">
+          <Loader2 className="h-5 w-5 animate-spin" />
+        </div>
+      ) : !data || data.length === 0 ? (
+        <div className="mt-6">
+          <EmptyState
+            icon={Trophy}
+            title="Ranking ainda vazio"
+            description="Treine, conquiste XP e suba no ranking. Os primeiros a evoluir definem o ritmo."
+          />
+        </div>
+      ) : (
+        <div className="mt-5 card-premium overflow-hidden">
+          {data.map((r, i) => {
+            const me = r.user_id === user?.id;
+            return (
+              <div
+                key={r.user_id}
+                className={`flex items-center justify-between border-b border-border px-4 py-3 last:border-0 ${
+                  me ? "bg-neon/5" : ""
+                }`}
+              >
+                <div className="flex min-w-0 items-center gap-3">
+                  <span
+                    className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-xs font-bold ${
+                      i === 0
+                        ? "bg-tier-gold text-background"
+                        : i === 1
+                        ? "bg-tier-silver text-background"
+                        : i === 2
+                        ? "bg-tier-bronze text-background"
+                        : "bg-secondary"
+                    }`}
+                  >
+                    {i + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <p className={`truncate text-sm ${me ? "font-bold text-neon" : "font-medium"}`}>
+                      {me ? "Você" : r.display_name ?? "Anônimo"}
+                    </p>
+                    {r.meta && (
+                      <p className="truncate text-[10px] text-muted-foreground">{r.meta}</p>
+                    )}
+                  </div>
                 </div>
+                <span className="font-display text-lg font-bold text-neon">{r.score}</span>
               </div>
-              <span className="font-display text-lg font-bold text-neon">{r.score}</span>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
