@@ -10,8 +10,8 @@ export const Route = createFileRoute("/app/evolucao")({
 });
 
 interface ScoreRow {
-  date: string;
-  total: number;
+  score_date: string;
+  total_score: number;
 }
 
 const LABELS = ["D", "S", "T", "Q", "Q", "S", "S"];
@@ -26,9 +26,9 @@ function Evolucao() {
       from.setDate(from.getDate() - 6);
       const { data, error } = await supabase
         .from("shub_scores")
-        .select("date, total")
-        .gte("date", from.toISOString().slice(0, 10))
-        .order("date", { ascending: true });
+        .select("score_date, total_score")
+        .gte("score_date", from.toISOString().slice(0, 10))
+        .order("score_date", { ascending: true });
       if (error) throw error;
       return data ?? [];
     },
@@ -36,10 +36,10 @@ function Evolucao() {
   });
 
   const days = data ?? [];
-  const max = days.length > 0 ? Math.max(...days.map((d) => d.total), 1) : 1;
+  const max = days.length > 0 ? Math.max(...days.map((d) => d.total_score), 1) : 1;
   const avg =
     days.length > 0
-      ? (days.reduce((acc, d) => acc + d.total, 0) / days.length).toFixed(1)
+      ? (days.reduce((acc, d) => acc + d.total_score, 0) / days.length).toFixed(1)
       : "0";
 
   return (
@@ -72,15 +72,15 @@ function Evolucao() {
 
           <div className="mt-6 flex h-40 items-end gap-2">
             {days.map((d) => {
-              const day = new Date(d.date).getDay();
+              const day = new Date(d.score_date).getDay();
               return (
-                <div key={d.date} className="flex flex-1 flex-col items-center gap-2">
+                <div key={d.score_date} className="flex flex-1 flex-col items-center gap-2">
                   <div className="flex w-full flex-1 items-end">
                     <div
                       className="w-full rounded-t-lg bg-neon glow-neon"
                       style={{
-                        height: `${(d.total / max) * 100}%`,
-                        opacity: 0.4 + (d.total / max) * 0.6,
+                        height: `${(d.total_score / max) * 100}%`,
+                        opacity: 0.4 + (d.total_score / max) * 0.6,
                       }}
                     />
                   </div>

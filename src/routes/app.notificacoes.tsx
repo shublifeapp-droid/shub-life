@@ -12,11 +12,11 @@ export const Route = createFileRoute("/app/notificacoes")({
 
 interface NotificationRow {
   id: string;
-  kind: string | null;
+  type: string;
   title: string;
-  body: string | null;
+  message: string;
   created_at: string;
-  read_at: string | null;
+  is_read: boolean;
 }
 
 const ICONS: Record<string, ComponentType<{ className?: string }>> = {
@@ -45,7 +45,7 @@ function NotificacoesPage() {
     queryFn: async (): Promise<NotificationRow[]> => {
       const { data, error } = await supabase
         .from("notifications")
-        .select("id, kind, title, body, created_at, read_at")
+        .select("id, type, title, message, created_at, is_read")
         .order("created_at", { ascending: false })
         .limit(50);
       if (error) throw error;
@@ -76,8 +76,8 @@ function NotificacoesPage() {
       ) : (
         <div className="mt-6 space-y-2">
           {data.map((it) => {
-            const Icon = ICONS[it.kind ?? "reminder"] ?? Bell;
-            const isNew = !it.read_at;
+            const Icon = ICONS[it.type] ?? Bell;
+            const isNew = !it.is_read;
             return (
               <div
                 key={it.id}
@@ -97,7 +97,7 @@ function NotificacoesPage() {
                       {timeAgo(it.created_at)}
                     </span>
                   </div>
-                  {it.body && <p className="mt-0.5 text-xs text-muted-foreground">{it.body}</p>}
+                  <p className="mt-0.5 text-xs text-muted-foreground">{it.message}</p>
                 </div>
               </div>
             );

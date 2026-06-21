@@ -12,10 +12,10 @@ export const Route = createFileRoute("/app/desafios")({
 interface ChallengeWithProgress {
   id: string;
   title: string;
-  goal: number;
-  xp_reward: number;
-  ends_at: string | null;
-  progress: number;
+  description: string | null;
+  xp_reward: number | null;
+  end_date: string | null;
+  progress_percent: number;
 }
 
 function DesafiosPage() {
@@ -24,21 +24,30 @@ function DesafiosPage() {
   const { data: active, isLoading } = useQuery({
     queryKey: ["challenges-active", user?.id],
     queryFn: async (): Promise<ChallengeWithProgress[]> => {
+      const today = new Date().toISOString().slice(0, 10);
       const { data: challenges, error } = await supabase
         .from("challenges")
-        .select("id, title, goal, xp_reward, ends_at")
-        .gte("ends_at", new Date().toISOString())
-        .order("ends_at", { ascending: true })
+        .select("id, title, description, xp_reward, end_date")
+        .or(`end_date.is.null,end_date.gte.${today}`)
+        .order("end_date", { ascending: true, nullsFirst: false })
         .limit(20);
       if (error) throw error;
       if (!challenges?.length || !user) return [];
       const { data: parts } = await supabase
         .from("challenge_participations")
-        .select("challenge_id, progress")
+        .select("challenge_id, progress_percent")
         .eq("user_id", user.id)
-        .in("challenge_id", challenges.map((c) => c.id));
-      const map = new Map((parts ?? []).map((p) => [p.challenge_id, p.progress]));
-      return challenges.map((c) => ({ ...c, progress: map.get(c.id) ?? 0 }));
+        .in(
+          "challenge_id",
+          challenges.map((c) => c.id),
+        );
+      const map = new Map(
+        (parts ?? []).map((p) => [p.challenge_id, p.progress_percent ?? 0]),
+      );
+      return challenges.map((c) => ({
+        ...c,
+        progress_percent: map.get(c.id) ?? 0,
+      }));
     },
     enabled: !!user,
   });
@@ -65,7 +74,7 @@ function DesafiosPage() {
       ) : (
         <section className="mt-6 space-y-3">
           {active.map((c) => {
-            const pct = c.goal > 0 ? Math.min(100, Math.round((c.progress / c.goal) * 100)) : 0;
+            const pct = Math.min(100, Math.max(0, c.progress_percent));
             return (
               <div key={c.id} className="card-premium p-4 fade-up">
                 <div className="flex items-start gap-3">
@@ -74,7 +83,9 @@ function DesafiosPage() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <p className="font-semibold">{c.title}</p>
-                    <p className="text-xs text-muted-foreground">+{c.xp_reward} XP</p>
+                    {c.xp_reward != null && (
+                      <p className="text-xs text-muted-foreground">+{c.xp_reward} XP</p>
+                    )}
                     <div className="mt-3 flex items-center gap-2">
                       <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-secondary">
                         <div
@@ -82,9 +93,7 @@ function DesafiosPage() {
                           style={{ width: `${pct}%`, boxShadow: "0 0 8px var(--neon)" }}
                         />
                       </div>
-                      <span className="text-xs font-semibold text-neon">
-                        {c.progress}/{c.goal}
-                      </span>
+                      <span className="text-xs font-semibold text-neon">{pct}%</span>
                     </div>
                   </div>
                 </div>

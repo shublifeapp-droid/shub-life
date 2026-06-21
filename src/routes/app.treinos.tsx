@@ -11,22 +11,11 @@ export const Route = createFileRoute("/app/treinos")({
 
 interface WorkoutRow {
   id: string;
-  name: string;
-  focus: string | null;
-  duration_min: number | null;
-  kcal: number | null;
-  scheduled_for: string | null;
-}
-
-function isToday(iso: string | null): boolean {
-  if (!iso) return false;
-  const d = new Date(iso);
-  const t = new Date();
-  return (
-    d.getFullYear() === t.getFullYear() &&
-    d.getMonth() === t.getMonth() &&
-    d.getDate() === t.getDate()
-  );
+  title: string;
+  category: string | null;
+  duration_minutes: number | null;
+  estimated_calories: number | null;
+  updated_at: string;
 }
 
 function Treinos() {
@@ -36,8 +25,9 @@ function Treinos() {
     queryFn: async (): Promise<WorkoutRow[]> => {
       const { data, error } = await supabase
         .from("workouts")
-        .select("id, name, focus, duration_min, kcal, scheduled_for")
-        .order("scheduled_for", { ascending: true, nullsFirst: false })
+        .select("id, title, category, duration_minutes, estimated_calories, updated_at")
+        .eq("is_active", true)
+        .order("updated_at", { ascending: false })
         .limit(20);
       if (error) throw error;
       return data ?? [];
@@ -45,8 +35,8 @@ function Treinos() {
     enabled: !!user,
   });
 
-  const today = data?.find((w) => isToday(w.scheduled_for));
-  const rest = (data ?? []).filter((w) => w.id !== today?.id);
+  const today = data?.[0];
+  const rest = (data ?? []).slice(1);
 
   return (
     <div className="px-5 pt-12 pb-10">
@@ -71,20 +61,20 @@ function Treinos() {
             <div className="mt-6 overflow-hidden rounded-3xl border border-neon/30 bg-surface">
               <div className="relative p-6">
                 <div className="pointer-events-none absolute -top-16 -right-10 h-48 w-48 rounded-full bg-neon/20 blur-3xl" />
-                <p className="text-[10px] uppercase tracking-widest text-neon">Treino de hoje</p>
-                <h2 className="mt-1 font-display text-2xl font-bold">{today.name}</h2>
-                {today.focus && (
-                  <p className="text-xs text-muted-foreground">{today.focus}</p>
+                <p className="text-[10px] uppercase tracking-widest text-neon">Próximo treino</p>
+                <h2 className="mt-1 font-display text-2xl font-bold">{today.title}</h2>
+                {today.category && (
+                  <p className="text-xs text-muted-foreground">{today.category}</p>
                 )}
                 <div className="mt-4 flex gap-4 text-xs">
-                  {today.duration_min != null && (
+                  {today.duration_minutes != null && (
                     <div className="flex items-center gap-1.5">
-                      <Clock className="h-4 w-4 text-neon" /> {today.duration_min} min
+                      <Clock className="h-4 w-4 text-neon" /> {today.duration_minutes} min
                     </div>
                   )}
-                  {today.kcal != null && (
+                  {today.estimated_calories != null && (
                     <div className="flex items-center gap-1.5">
-                      <Flame className="h-4 w-4 text-neon" /> {today.kcal} kcal
+                      <Flame className="h-4 w-4 text-neon" /> {today.estimated_calories} kcal
                     </div>
                   )}
                 </div>
@@ -114,17 +104,19 @@ function Treinos() {
                       <Play className="h-5 w-5" />
                     </div>
                     <div className="flex-1">
-                      <p className="font-semibold">{p.name}</p>
-                      {p.focus && (
-                        <p className="text-[11px] text-muted-foreground">{p.focus}</p>
+                      <p className="font-semibold">{p.title}</p>
+                      {p.category && (
+                        <p className="text-[11px] text-muted-foreground">{p.category}</p>
                       )}
                     </div>
                     <div className="text-right">
-                      {p.duration_min != null && (
-                        <p className="text-xs text-neon">{p.duration_min} min</p>
+                      {p.duration_minutes != null && (
+                        <p className="text-xs text-neon">{p.duration_minutes} min</p>
                       )}
-                      {p.kcal != null && (
-                        <p className="text-[11px] text-muted-foreground">{p.kcal} kcal</p>
+                      {p.estimated_calories != null && (
+                        <p className="text-[11px] text-muted-foreground">
+                          {p.estimated_calories} kcal
+                        </p>
                       )}
                     </div>
                   </Link>

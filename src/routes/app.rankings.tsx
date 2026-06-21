@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { MapPin, Building2, Users, User, Loader2, Trophy } from "lucide-react";
+import { Calendar, CalendarDays, CalendarRange, Loader2, Trophy } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { EmptyState } from "@/components/shub/EmptyState";
@@ -11,23 +11,22 @@ export const Route = createFileRoute("/app/rankings")({
 });
 
 const tabs = [
-  { id: "city", label: "Cidade", icon: MapPin },
-  { id: "gym", label: "Academia", icon: Building2 },
-  { id: "group", label: "Grupos", icon: Users },
-  { id: "personal", label: "Personais", icon: User },
+  { id: "daily", label: "Diário", icon: Calendar },
+  { id: "weekly", label: "Semanal", icon: CalendarDays },
+  { id: "monthly", label: "Mensal", icon: CalendarRange },
 ] as const;
 
-type ScopeId = (typeof tabs)[number]["id"];
+type PeriodId = (typeof tabs)[number]["id"];
 
 interface RankingRow {
   user_id: string;
-  display_name: string | null;
-  meta: string | null;
+  position: number;
   score: number;
+  city: string | null;
 }
 
 function RankingsPage() {
-  const [active, setActive] = useState<ScopeId>("city");
+  const [active, setActive] = useState<PeriodId>("weekly");
   const { user } = useCurrentUser();
 
   const { data, isLoading } = useQuery({
@@ -35,9 +34,9 @@ function RankingsPage() {
     queryFn: async (): Promise<RankingRow[]> => {
       const { data, error } = await supabase
         .from("rankings")
-        .select("user_id, display_name, meta, score")
-        .eq("scope", active)
-        .order("score", { ascending: false })
+        .select("user_id, position, score, city")
+        .eq("period", active)
+        .order("position", { ascending: true })
         .limit(50);
       if (error) throw error;
       return data ?? [];
@@ -51,7 +50,7 @@ function RankingsPage() {
         <h1 className="mt-1 font-display text-3xl font-bold">Top performers</h1>
       </header>
 
-      <div className="mt-5 grid grid-cols-4 gap-2">
+      <div className="mt-5 grid grid-cols-3 gap-2">
         {tabs.map((t) => {
           const isActive = active === t.id;
           return (
@@ -83,8 +82,9 @@ function RankingsPage() {
         </div>
       ) : (
         <div className="mt-5 card-premium overflow-hidden">
-          {data.map((r, i) => {
+          {data.map((r) => {
             const me = r.user_id === user?.id;
+            const pos = r.position;
             return (
               <div
                 key={r.user_id}
@@ -95,23 +95,23 @@ function RankingsPage() {
                 <div className="flex min-w-0 items-center gap-3">
                   <span
                     className={`grid h-9 w-9 shrink-0 place-items-center rounded-full text-xs font-bold ${
-                      i === 0
+                      pos === 1
                         ? "bg-tier-gold text-background"
-                        : i === 1
+                        : pos === 2
                         ? "bg-tier-silver text-background"
-                        : i === 2
+                        : pos === 3
                         ? "bg-tier-bronze text-background"
                         : "bg-secondary"
                     }`}
                   >
-                    {i + 1}
+                    {pos}
                   </span>
                   <div className="min-w-0">
                     <p className={`truncate text-sm ${me ? "font-bold text-neon" : "font-medium"}`}>
-                      {me ? "Você" : r.display_name ?? "Anônimo"}
+                      {me ? "Você" : "Atleta SHUB"}
                     </p>
-                    {r.meta && (
-                      <p className="truncate text-[10px] text-muted-foreground">{r.meta}</p>
+                    {r.city && (
+                      <p className="truncate text-[10px] text-muted-foreground">{r.city}</p>
                     )}
                   </div>
                 </div>
