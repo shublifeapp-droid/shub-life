@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useRealtimeInvalidate } from "@/hooks/useRealtimeInvalidate";
 import { EmptyState } from "@/components/shub/EmptyState";
 import { toast } from "sonner";
 
@@ -38,6 +39,7 @@ function HomeScreen() {
   const navigate = useNavigate();
   const { user, loading: userLoading } = useCurrentUser();
   const qc = useQueryClient();
+  useRealtimeInvalidate("workouts", ["next_workout", user?.id], user ? `student_id=eq.${user.id}` : undefined);
 
   const userName = useMemo(() => {
     if (!user) return "";
