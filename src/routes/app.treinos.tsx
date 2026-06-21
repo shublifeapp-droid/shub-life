@@ -21,6 +21,7 @@ interface WorkoutRow {
 
 function Treinos() {
   const { user } = useCurrentUser();
+  useRealtimeInvalidate("workouts", ["workouts", user?.id], user ? `student_id=eq.${user.id}` : undefined);
   const { data, isLoading } = useQuery({
     queryKey: ["workouts", user?.id],
     queryFn: async (): Promise<WorkoutRow[]> => {
