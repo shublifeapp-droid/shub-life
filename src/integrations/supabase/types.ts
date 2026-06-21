@@ -125,6 +125,62 @@ export type Database = {
         }
         Relationships: []
       }
+      billing_reminders: {
+        Row: {
+          amount: number
+          contract_id: string | null
+          created_at: string
+          due_date: string
+          id: string
+          notes: string | null
+          paid_at: string | null
+          personal_id: string
+          recurrence: string
+          sent_at: string | null
+          status: string
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          contract_id?: string | null
+          created_at?: string
+          due_date: string
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          personal_id: string
+          recurrence?: string
+          sent_at?: string | null
+          status?: string
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          contract_id?: string | null
+          created_at?: string
+          due_date?: string
+          id?: string
+          notes?: string | null
+          paid_at?: string | null
+          personal_id?: string
+          recurrence?: string
+          sent_at?: string | null
+          status?: string
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "billing_reminders_contract_id_fkey"
+            columns: ["contract_id"]
+            isOneToOne: false
+            referencedRelation: "personal_contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       challenge_participations: {
         Row: {
           challenge_id: string
@@ -667,6 +723,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      personal_contracts: {
+        Row: {
+          content: string
+          created_at: string
+          end_date: string | null
+          id: string
+          monthly_amount: number
+          personal_id: string
+          signed_at: string | null
+          start_date: string
+          status: string
+          student_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          monthly_amount?: number
+          personal_id: string
+          signed_at?: string | null
+          start_date?: string
+          status?: string
+          student_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          monthly_amount?: number
+          personal_id?: string
+          signed_at?: string | null
+          start_date?: string
+          status?: string
+          student_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       personal_students: {
         Row: {
