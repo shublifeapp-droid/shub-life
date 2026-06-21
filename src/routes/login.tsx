@@ -3,36 +3,38 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, User, Dumbbell } from "lucide-react";
 import { Logo } from "@/components/shub/Logo";
+import { routeAfterLogin } from "@/lib/shub/routeAfterLogin";
 
 export const Route = createFileRoute("/login")({
   component: Login,
 });
+
+type Role = "student" | "personal";
 
 function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState<Role>("student");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
         toast.error(error.message);
-      } else {
-        toast.success("Bem-vindo de volta!");
-        navigate({ to: "/app" });
+        return;
       }
-    } catch (error) {
+      toast.success("Bem-vindo de volta!");
+      const dest = await routeAfterLogin();
+      navigate({ to: dest });
+    } catch {
       toast.error("Erro ao realizar login");
     } finally {
       setLoading(false);
@@ -42,13 +44,10 @@ function Login() {
   const handleOAuth = async (provider: "google" | "apple") => {
     try {
       const result = await lovable.auth.signInWithOAuth(provider, {
-        redirect_uri: window.location.origin + "/app",
+        redirect_uri: window.location.origin + (role === "personal" ? "/pro" : "/app"),
       });
-
-      if (result.error) {
-        toast.error(result.error.message);
-      }
-    } catch (error) {
+      if (result.error) toast.error(result.error.message);
+    } catch {
       toast.error("Erro ao conectar");
     }
   };
@@ -65,7 +64,12 @@ function Login() {
           <p className="mt-2 text-sm text-muted-foreground">Continue sua evolução de onde parou.</p>
         </div>
 
-        <form className="mt-10 space-y-4" onSubmit={handleLogin}>
+        <div className="mt-6 grid grid-cols-2 gap-2 rounded-2xl border border-border bg-surface p-1">
+          <RoleTab active={role === "student"} onClick={() => setRole("student")} icon={User} label="Aluno" />
+          <RoleTab active={role === "personal"} onClick={() => setRole("personal")} icon={Dumbbell} label="Profissional" />
+        </div>
+
+        <form className="mt-6 space-y-4" onSubmit={handleLogin}>
           <Field
             label="E-mail"
             type="email"
@@ -135,6 +139,21 @@ function SocialBtn({ label, onClick }: { label: string; onClick?: () => void }) 
       onClick={onClick}
       className="rounded-2xl border border-border bg-surface py-3 text-sm font-medium transition active:scale-95 hover:border-neon/40"
     >
+      {label}
+    </button>
+  );
+}
+
+function RoleTab({ active, onClick, icon: Icon, label }: { active: boolean; onClick: () => void; icon: React.ElementType; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition ${
+        active ? "bg-neon text-neon-foreground glow-neon" : "text-muted-foreground hover:text-foreground"
+      }`}
+    >
+      <Icon className="h-4 w-4" />
       {label}
     </button>
   );
