@@ -1,5 +1,5 @@
 import { Link, Outlet, createFileRoute, useRouterState } from "@tanstack/react-router";
-import { Home, TrendingUp, Dumbbell, Users, User, Sparkles } from "lucide-react";
+import { Home, Zap, Dumbbell, Users, User, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -7,11 +7,12 @@ export const Route = createFileRoute("/app")({
 
 const tabs = [
   { to: "/app", label: "Home", icon: Home, exact: true },
-  { to: "/app/evolucao", label: "Evolução", icon: TrendingUp, exact: false },
+  { to: "/app/score", label: "Score", icon: Zap, exact: false },
   { to: "/app/treinos", label: "Treinos", icon: Dumbbell, exact: false },
   { to: "/app/comunidade", label: "Comunidade", icon: Users, exact: false },
   { to: "/app/perfil", label: "Perfil", icon: User, exact: false },
 ] as const;
+
 
 function AppLayout() {
   const path = useRouterState({ select: (s) => s.location.pathname });
