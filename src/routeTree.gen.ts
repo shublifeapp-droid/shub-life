@@ -48,6 +48,7 @@ import { Route as AdminConteudoRouteImport } from './routes/admin.conteudo'
 import { Route as AdminConfiguracoesRouteImport } from './routes/admin.configuracoes'
 import { Route as AdminAuditoriaRouteImport } from './routes/admin.auditoria'
 import { Route as AppRunIndexRouteImport } from './routes/app.run.index'
+import { Route as ProTreinosNovoRouteImport } from './routes/pro.treinos.novo'
 import { Route as ProAlunosIdRouteImport } from './routes/pro.alunos.$id'
 import { Route as AppTreinosIdRouteImport } from './routes/app.treinos.$id'
 import { Route as AppRunIniciarRouteImport } from './routes/app.run.iniciar'
@@ -247,6 +248,11 @@ const AppRunIndexRoute = AppRunIndexRouteImport.update({
   path: '/run/',
   getParentRoute: () => AppRoute,
 } as any)
+const ProTreinosNovoRoute = ProTreinosNovoRouteImport.update({
+  id: '/novo',
+  path: '/novo',
+  getParentRoute: () => ProTreinosRoute,
+} as any)
 const ProAlunosIdRoute = ProAlunosIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -296,7 +302,7 @@ export interface FileRoutesByFullPath {
   '/pro/contratos': typeof ProContratosRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
-  '/pro/treinos': typeof ProTreinosRoute
+  '/pro/treinos': typeof ProTreinosRouteWithChildren
   '/r/$code': typeof RCodeRoute
   '/admin/': typeof AdminIndexRoute
   '/app/': typeof AppIndexRoute
@@ -305,6 +311,7 @@ export interface FileRoutesByFullPath {
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
   '/pro/alunos/$id': typeof ProAlunosIdRoute
+  '/pro/treinos/novo': typeof ProTreinosNovoRoute
   '/app/run/': typeof AppRunIndexRoute
 }
 export interface FileRoutesByTo {
@@ -336,7 +343,7 @@ export interface FileRoutesByTo {
   '/pro/contratos': typeof ProContratosRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
-  '/pro/treinos': typeof ProTreinosRoute
+  '/pro/treinos': typeof ProTreinosRouteWithChildren
   '/r/$code': typeof RCodeRoute
   '/admin': typeof AdminIndexRoute
   '/app': typeof AppIndexRoute
@@ -345,6 +352,7 @@ export interface FileRoutesByTo {
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
   '/pro/alunos/$id': typeof ProAlunosIdRoute
+  '/pro/treinos/novo': typeof ProTreinosNovoRoute
   '/app/run': typeof AppRunIndexRoute
 }
 export interface FileRoutesById {
@@ -381,7 +389,7 @@ export interface FileRoutesById {
   '/pro/contratos': typeof ProContratosRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
-  '/pro/treinos': typeof ProTreinosRoute
+  '/pro/treinos': typeof ProTreinosRouteWithChildren
   '/r/$code': typeof RCodeRoute
   '/admin/': typeof AdminIndexRoute
   '/app/': typeof AppIndexRoute
@@ -390,6 +398,7 @@ export interface FileRoutesById {
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
   '/pro/alunos/$id': typeof ProAlunosIdRoute
+  '/pro/treinos/novo': typeof ProTreinosNovoRoute
   '/app/run/': typeof AppRunIndexRoute
 }
 export interface FileRouteTypes {
@@ -436,6 +445,7 @@ export interface FileRouteTypes {
     | '/app/run/iniciar'
     | '/app/treinos/$id'
     | '/pro/alunos/$id'
+    | '/pro/treinos/novo'
     | '/app/run/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -476,6 +486,7 @@ export interface FileRouteTypes {
     | '/app/run/iniciar'
     | '/app/treinos/$id'
     | '/pro/alunos/$id'
+    | '/pro/treinos/novo'
     | '/app/run'
   id:
     | '__root__'
@@ -520,6 +531,7 @@ export interface FileRouteTypes {
     | '/app/run/iniciar'
     | '/app/treinos/$id'
     | '/pro/alunos/$id'
+    | '/pro/treinos/novo'
     | '/app/run/'
   fileRoutesById: FileRoutesById
 }
@@ -810,6 +822,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRunIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/pro/treinos/novo': {
+      id: '/pro/treinos/novo'
+      path: '/novo'
+      fullPath: '/pro/treinos/novo'
+      preLoaderRoute: typeof ProTreinosNovoRouteImport
+      parentRoute: typeof ProTreinosRoute
+    }
     '/pro/alunos/$id': {
       id: '/pro/alunos/$id'
       path: '/$id'
@@ -930,13 +949,25 @@ const ProAlunosRouteWithChildren = ProAlunosRoute._addFileChildren(
   ProAlunosRouteChildren,
 )
 
+interface ProTreinosRouteChildren {
+  ProTreinosNovoRoute: typeof ProTreinosNovoRoute
+}
+
+const ProTreinosRouteChildren: ProTreinosRouteChildren = {
+  ProTreinosNovoRoute: ProTreinosNovoRoute,
+}
+
+const ProTreinosRouteWithChildren = ProTreinosRoute._addFileChildren(
+  ProTreinosRouteChildren,
+)
+
 interface ProRouteChildren {
   ProAlunosRoute: typeof ProAlunosRouteWithChildren
   ProCobrancasRoute: typeof ProCobrancasRoute
   ProContratosRoute: typeof ProContratosRoute
   ProFinanceiroRoute: typeof ProFinanceiroRoute
   ProNotificacoesRoute: typeof ProNotificacoesRoute
-  ProTreinosRoute: typeof ProTreinosRoute
+  ProTreinosRoute: typeof ProTreinosRouteWithChildren
   ProIndexRoute: typeof ProIndexRoute
 }
 
@@ -946,7 +977,7 @@ const ProRouteChildren: ProRouteChildren = {
   ProContratosRoute: ProContratosRoute,
   ProFinanceiroRoute: ProFinanceiroRoute,
   ProNotificacoesRoute: ProNotificacoesRoute,
-  ProTreinosRoute: ProTreinosRoute,
+  ProTreinosRoute: ProTreinosRouteWithChildren,
   ProIndexRoute: ProIndexRoute,
 }
 
