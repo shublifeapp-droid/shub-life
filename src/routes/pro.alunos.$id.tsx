@@ -16,7 +16,7 @@ function StudentDetail() {
       const [profile, scores, workouts, streak] = await Promise.all([
         supabase.from("profiles").select("nickname, avatar_url, shub_score, bio").eq("id", id).maybeSingle(),
         supabase.from("shub_scores").select("score_date, total_score").eq("user_id", id).order("score_date", { ascending: false }).limit(14),
-        supabase.from("workout_logs").select("id, completed_at").eq("user_id", id).order("completed_at", { ascending: false }).limit(10),
+        supabase.from("workout_logs").select("id, date, duration_actual").eq("user_id", id).order("date", { ascending: false }).limit(10),
         supabase.from("streaks").select("current_streak, best_streak").eq("user_id", id).maybeSingle(),
       ]);
       return {
@@ -71,14 +71,12 @@ function StudentDetail() {
       <section>
         <h2 className="mb-3 font-display text-lg font-semibold">Treinos recentes</h2>
         <ul className="space-y-2">
-          {data.workouts.map((w) => {
-            const row = w as { id: string; completed_at: string };
-            return (
-              <li key={row.id} className="rounded-xl border border-border bg-surface px-4 py-2.5 text-sm">
-                Treino concluído em {new Date(row.completed_at).toLocaleString("pt-BR")}
-              </li>
-            );
-          })}
+          {(data.workouts as Array<{ id: string; date: string; duration_actual: number | null }>).map((row) => (
+            <li key={row.id} className="rounded-xl border border-border bg-surface px-4 py-2.5 text-sm flex items-center justify-between">
+              <span>Treino em {new Date(row.date).toLocaleDateString("pt-BR")}</span>
+              <span className="text-xs text-muted-foreground">{row.duration_actual ?? 0} min</span>
+            </li>
+          ))}
           {data.workouts.length === 0 && <p className="text-sm text-muted-foreground">Nenhum treino concluído ainda.</p>}
         </ul>
       </section>

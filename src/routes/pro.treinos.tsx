@@ -17,8 +17,8 @@ function ProWorkouts() {
     queryFn: async () => {
       const { data } = await supabase
         .from("workouts")
-        .select("id, name, difficulty, duration_minutes, status, created_at")
-        .eq("created_by", user!.id)
+        .select("id, title, difficulty, duration_minutes, is_active, category, student_id")
+        .eq("personal_id", user!.id)
         .order("created_at", { ascending: false });
       return data ?? [];
     },
@@ -37,18 +37,15 @@ function ProWorkouts() {
         <EmptyState icon={Dumbbell} title="Nenhum treino criado" description="Crie treinos e atribua aos seus alunos." />
       ) : (
         <ul className="space-y-2">
-          {data.map((w) => {
-            const row = w as { id: string; name: string; difficulty: string | null; duration_minutes: number | null; status: string | null };
-            return (
-              <li key={row.id} className="flex items-center justify-between rounded-2xl border border-border bg-surface px-4 py-3">
-                <div>
-                  <p className="font-medium">{row.name}</p>
-                  <p className="text-xs text-muted-foreground">{row.difficulty ?? "—"} · {row.duration_minutes ?? 0} min</p>
-                </div>
-                <span className="rounded-full bg-neon/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-neon">{row.status ?? "draft"}</span>
-              </li>
-            );
-          })}
+          {(data as Array<{ id: string; title: string; difficulty: string | null; duration_minutes: number | null; is_active: boolean | null; category: string | null }>).map((row) => (
+            <li key={row.id} className="flex items-center justify-between rounded-2xl border border-border bg-surface px-4 py-3">
+              <div>
+                <p className="font-medium">{row.title}</p>
+                <p className="text-xs text-muted-foreground">{row.category ?? "—"} · {row.difficulty ?? "—"} · {row.duration_minutes ?? 0} min</p>
+              </div>
+              <span className={`rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wider ${row.is_active ? "bg-neon/10 text-neon" : "bg-muted text-muted-foreground"}`}>{row.is_active ? "ativo" : "inativo"}</span>
+            </li>
+          ))}
         </ul>
       )}
     </div>

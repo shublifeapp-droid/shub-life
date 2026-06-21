@@ -12,8 +12,8 @@ function AdminContent() {
     queryKey: ["admin-content"],
     queryFn: async () => {
       const [badges, challenges, exercises, workouts] = await Promise.all([
-        supabase.from("badges").select("id, name, tier").order("name"),
-        supabase.from("challenges").select("id, title, status").order("created_at", { ascending: false }).limit(100),
+        supabase.from("badges").select("id, name, level").order("name"),
+        supabase.from("challenges").select("id, title, type").order("created_at", { ascending: false }).limit(100),
         supabase.from("exercises").select("id", { count: "exact", head: true }),
         supabase.from("workouts").select("id", { count: "exact", head: true }),
       ]);
@@ -42,10 +42,10 @@ function AdminContent() {
 
       <Section icon={Trophy} title="Medalhas">
         <div className="grid gap-2 md:grid-cols-2">
-          {data.badges.map((b) => (
-            <div key={(b as { id: string }).id} className="flex items-center justify-between rounded-xl border border-border bg-surface px-4 py-2.5">
-              <span className="text-sm">{(b as { name: string }).name}</span>
-              <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{(b as { tier: string }).tier}</span>
+          {(data.badges as Array<{ id: string; name: string; level: string | null }>).map((b) => (
+            <div key={b.id} className="flex items-center justify-between rounded-xl border border-border bg-surface px-4 py-2.5">
+              <span className="text-sm">{b.name}</span>
+              <span className="text-[10px] uppercase tracking-wider text-muted-foreground">{b.level ?? "—"}</span>
             </div>
           ))}
         </div>
@@ -53,10 +53,10 @@ function AdminContent() {
 
       <Section icon={Flag} title="Desafios">
         <div className="space-y-2">
-          {data.challenges.map((c) => (
-            <div key={(c as { id: string }).id} className="flex items-center justify-between rounded-xl border border-border bg-surface px-4 py-2.5">
-              <span className="text-sm">{(c as { title: string }).title}</span>
-              <span className="rounded-full bg-neon/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-neon">{(c as { status: string }).status}</span>
+          {(data.challenges as Array<{ id: string; title: string; type: string | null }>).map((c) => (
+            <div key={c.id} className="flex items-center justify-between rounded-xl border border-border bg-surface px-4 py-2.5">
+              <span className="text-sm">{c.title}</span>
+              <span className="rounded-full bg-neon/10 px-2 py-0.5 text-[10px] uppercase tracking-wider text-neon">{c.type ?? "—"}</span>
             </div>
           ))}
         </div>
