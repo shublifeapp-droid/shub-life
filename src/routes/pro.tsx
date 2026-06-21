@@ -1,5 +1,5 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
-import { LayoutDashboard, Users, Dumbbell, DollarSign, Bell, FileText, Receipt } from "lucide-react";
+import { LayoutDashboard, Users, Dumbbell, DollarSign, Bell, FileText, Receipt, Send } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { DashShell, type DashNavItem } from "@/components/shub/DashShell";
 
@@ -26,6 +26,7 @@ const items: DashNavItem[] = [
   { to: "/pro/cobrancas", label: "Cobranças", icon: Receipt },
   { to: "/pro/financeiro", label: "Financeiro", icon: DollarSign },
   { to: "/pro/notificacoes", label: "Notificações", icon: Bell },
+  { to: "/pro/enviar-notificacao", label: "Enviar aviso", icon: Send },
 ];
 
 function ProLayout() {
