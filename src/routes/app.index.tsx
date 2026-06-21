@@ -39,6 +39,7 @@ function HomeScreen() {
   const navigate = useNavigate();
   const { user, loading: userLoading } = useCurrentUser();
   const qc = useQueryClient();
+  useRealtimeInvalidate("workouts", ["next_workout", user?.id], user ? `student_id=eq.${user.id}` : undefined);
 
   const userName = useMemo(() => {
     if (!user) return "";
