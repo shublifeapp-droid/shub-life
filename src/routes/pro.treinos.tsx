@@ -28,9 +28,14 @@ function ProWorkouts() {
 
   return (
     <div className="space-y-5">
-      <header>
-        <h1 className="font-display text-3xl font-bold">Treinos</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Treinos que você prescreveu.</p>
+      <header className="flex items-end justify-between gap-4">
+        <div>
+          <h1 className="font-display text-3xl font-bold">Treinos</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Treinos que você prescreveu.</p>
+        </div>
+        <Link to="/pro/treinos/novo" className="inline-flex items-center gap-2 rounded-md bg-neon px-4 py-2 text-sm font-medium text-neon-foreground glow-neon active:scale-95 transition">
+          <Plus className="h-4 w-4" /> Novo treino
+        </Link>
       </header>
 
       {!data || data.length === 0 ? (
