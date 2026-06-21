@@ -1,5 +1,5 @@
 import { Outlet, createFileRoute, redirect } from "@tanstack/react-router";
-import { LayoutDashboard, Users, Dumbbell, DollarSign, Bell } from "lucide-react";
+import { LayoutDashboard, Users, Dumbbell, DollarSign, Bell, FileText, Receipt } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { DashShell, type DashNavItem } from "@/components/shub/DashShell";
 
