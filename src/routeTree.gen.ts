@@ -26,6 +26,7 @@ import { Route as ProTreinosRouteImport } from './routes/pro.treinos'
 import { Route as ProNotificacoesRouteImport } from './routes/pro.notificacoes'
 import { Route as ProFinanceiroRouteImport } from './routes/pro.financeiro'
 import { Route as ProContratosRouteImport } from './routes/pro.contratos'
+import { Route as ProCobrancasRouteImport } from './routes/pro.cobrancas'
 import { Route as ProAlunosRouteImport } from './routes/pro.alunos'
 import { Route as InfLinkRouteImport } from './routes/inf.link'
 import { Route as InfIndicacoesRouteImport } from './routes/inf.indicacoes'
@@ -134,6 +135,11 @@ const ProFinanceiroRoute = ProFinanceiroRouteImport.update({
 const ProContratosRoute = ProContratosRouteImport.update({
   id: '/contratos',
   path: '/contratos',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProCobrancasRoute = ProCobrancasRouteImport.update({
+  id: '/cobrancas',
+  path: '/cobrancas',
   getParentRoute: () => ProRoute,
 } as any)
 const ProAlunosRoute = ProAlunosRouteImport.update({
@@ -286,6 +292,7 @@ export interface FileRoutesByFullPath {
   '/inf/indicacoes': typeof InfIndicacoesRoute
   '/inf/link': typeof InfLinkRoute
   '/pro/alunos': typeof ProAlunosRouteWithChildren
+  '/pro/cobrancas': typeof ProCobrancasRoute
   '/pro/contratos': typeof ProContratosRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
@@ -325,6 +332,7 @@ export interface FileRoutesByTo {
   '/inf/indicacoes': typeof InfIndicacoesRoute
   '/inf/link': typeof InfLinkRoute
   '/pro/alunos': typeof ProAlunosRouteWithChildren
+  '/pro/cobrancas': typeof ProCobrancasRoute
   '/pro/contratos': typeof ProContratosRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
@@ -369,6 +377,7 @@ export interface FileRoutesById {
   '/inf/indicacoes': typeof InfIndicacoesRoute
   '/inf/link': typeof InfLinkRoute
   '/pro/alunos': typeof ProAlunosRouteWithChildren
+  '/pro/cobrancas': typeof ProCobrancasRoute
   '/pro/contratos': typeof ProContratosRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
@@ -414,6 +423,7 @@ export interface FileRouteTypes {
     | '/inf/indicacoes'
     | '/inf/link'
     | '/pro/alunos'
+    | '/pro/cobrancas'
     | '/pro/contratos'
     | '/pro/financeiro'
     | '/pro/notificacoes'
@@ -453,6 +463,7 @@ export interface FileRouteTypes {
     | '/inf/indicacoes'
     | '/inf/link'
     | '/pro/alunos'
+    | '/pro/cobrancas'
     | '/pro/contratos'
     | '/pro/financeiro'
     | '/pro/notificacoes'
@@ -496,6 +507,7 @@ export interface FileRouteTypes {
     | '/inf/indicacoes'
     | '/inf/link'
     | '/pro/alunos'
+    | '/pro/cobrancas'
     | '/pro/contratos'
     | '/pro/financeiro'
     | '/pro/notificacoes'
@@ -642,6 +654,13 @@ declare module '@tanstack/react-router' {
       path: '/contratos'
       fullPath: '/pro/contratos'
       preLoaderRoute: typeof ProContratosRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/cobrancas': {
+      id: '/pro/cobrancas'
+      path: '/cobrancas'
+      fullPath: '/pro/cobrancas'
+      preLoaderRoute: typeof ProCobrancasRouteImport
       parentRoute: typeof ProRoute
     }
     '/pro/alunos': {
@@ -913,6 +932,7 @@ const ProAlunosRouteWithChildren = ProAlunosRoute._addFileChildren(
 
 interface ProRouteChildren {
   ProAlunosRoute: typeof ProAlunosRouteWithChildren
+  ProCobrancasRoute: typeof ProCobrancasRoute
   ProContratosRoute: typeof ProContratosRoute
   ProFinanceiroRoute: typeof ProFinanceiroRoute
   ProNotificacoesRoute: typeof ProNotificacoesRoute
@@ -922,6 +942,7 @@ interface ProRouteChildren {
 
 const ProRouteChildren: ProRouteChildren = {
   ProAlunosRoute: ProAlunosRouteWithChildren,
+  ProCobrancasRoute: ProCobrancasRoute,
   ProContratosRoute: ProContratosRoute,
   ProFinanceiroRoute: ProFinanceiroRoute,
   ProNotificacoesRoute: ProNotificacoesRoute,
