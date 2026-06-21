@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { UserPlus } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Loader2, Shield, User as UserIcon, Dumbbell } from "lucide-react";
 import { useState } from "react";
@@ -66,9 +67,17 @@ function AdminUsers() {
 
   return (
     <div className="space-y-5">
-      <header>
-        <h1 className="font-display text-3xl font-bold">Usuários</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Gerencie papéis e permissões.</p>
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="font-display text-3xl font-bold">Usuários</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Gerencie papéis e permissões.</p>
+        </div>
+        <Link
+          to="/admin/usuarios/novo"
+          className="inline-flex items-center gap-2 rounded-2xl bg-neon px-4 py-2.5 text-sm font-bold text-neon-foreground glow-neon active:scale-95"
+        >
+          <UserPlus className="h-4 w-4" /> Novo usuário
+        </Link>
       </header>
 
       <input

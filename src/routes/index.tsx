@@ -14,6 +14,7 @@ export const Route = createFileRoute("/")({
 });
 
 const studentPlans = PLANS.filter((p) => p.audience === "student");
+const personalPlans = PLANS.filter((p) => p.audience === "personal");
 const freePlan = studentPlans.find((p) => p.code === "shub_free")!;
 const premiumPlan = studentPlans.find((p) => p.code === "shub_premium")!;
 
@@ -90,10 +91,10 @@ function Landing() {
         </div>
       </section>
 
-      {/* Plans */}
+      {/* Plans — Alunos */}
       <section className="relative z-10 mx-auto max-w-5xl px-5 py-16">
         <div className="text-center">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-neon">Planos</p>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-neon">Para alunos</p>
           <h2 className="mt-2 font-display text-4xl font-bold">Escolha o seu ritmo</h2>
           <p className="mt-2 text-sm text-muted-foreground">Comece grátis. Faça upgrade quando quiser.</p>
         </div>
@@ -146,6 +147,73 @@ function Landing() {
               Testar premium
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Plans — Profissionais */}
+      <section className="relative z-10 mx-auto max-w-6xl px-5 py-16">
+        <div className="text-center">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-neon">Para profissionais</p>
+          <h2 className="mt-2 font-display text-4xl font-bold">Gerencie sua carteira de alunos</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Treinos personalizados, contratos, cobranças e ganhos recorrentes.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
+          {personalPlans.map((plan) => {
+            const isStarter = plan.code === "personal_starter";
+            const isPro = plan.code === "personal_pro";
+            return (
+              <div
+                key={plan.code}
+                className={`relative overflow-hidden rounded-3xl p-6 ${
+                  isPro
+                    ? "border-2 border-neon/50 bg-gradient-to-br from-neon/15 via-neon/5 to-transparent ring-neon glow-neon-soft"
+                    : "border border-border bg-surface"
+                }`}
+              >
+                {isPro && (
+                  <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-neon px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-neon-foreground">
+                    <Sparkles className="h-3 w-3" /> Popular
+                  </span>
+                )}
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{plan.label}</p>
+                <div className="mt-2 flex items-baseline gap-1">
+                  {plan.monthlyPrice === 0 ? (
+                    <span className="font-display text-4xl font-bold text-neon">Grátis</span>
+                  ) : (
+                    <>
+                      <span className="font-display text-4xl font-bold">
+                        R$ {plan.monthlyPrice.toFixed(2).replace(".", ",")}
+                      </span>
+                      <span className="text-xs text-muted-foreground">/mês</span>
+                    </>
+                  )}
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {isStarter ? "Comece sem custo" : `Até ${plan.studentLimit} alunos`}
+                </p>
+                <ul className="mt-5 space-y-2.5">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2 text-sm">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-neon" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  to="/cadastro"
+                  className={`mt-6 flex w-full items-center justify-center rounded-2xl px-4 py-3.5 text-sm font-bold active:scale-95 transition ${
+                    isPro
+                      ? "bg-neon text-neon-foreground glow-neon"
+                      : "border border-border bg-surface-elevated text-foreground"
+                  }`}
+                >
+                  Quero ser profissional
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </section>
 

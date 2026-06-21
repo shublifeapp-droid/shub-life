@@ -53,6 +53,7 @@ import { Route as ProTreinosNovoRouteImport } from './routes/pro.treinos.novo'
 import { Route as ProAlunosIdRouteImport } from './routes/pro.alunos.$id'
 import { Route as AppTreinosIdRouteImport } from './routes/app.treinos.$id'
 import { Route as AppRunIniciarRouteImport } from './routes/app.run.iniciar'
+import { Route as AdminUsuariosNovoRouteImport } from './routes/admin.usuarios.novo'
 
 const ProRoute = ProRouteImport.update({
   id: '/pro',
@@ -274,6 +275,11 @@ const AppRunIniciarRoute = AppRunIniciarRouteImport.update({
   path: '/run/iniciar',
   getParentRoute: () => AppRoute,
 } as any)
+const AdminUsuariosNovoRoute = AdminUsuariosNovoRouteImport.update({
+  id: '/novo',
+  path: '/novo',
+  getParentRoute: () => AdminUsuariosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -290,7 +296,7 @@ export interface FileRoutesByFullPath {
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/influenciadores': typeof AdminInfluenciadoresRoute
   '/admin/notificacoes': typeof AdminNotificacoesRoute
-  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/usuarios': typeof AdminUsuariosRouteWithChildren
   '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
   '/app/desafios': typeof AppDesafiosRoute
@@ -315,6 +321,7 @@ export interface FileRoutesByFullPath {
   '/app/': typeof AppIndexRoute
   '/inf/': typeof InfIndexRoute
   '/pro/': typeof ProIndexRoute
+  '/admin/usuarios/novo': typeof AdminUsuariosNovoRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
   '/pro/alunos/$id': typeof ProAlunosIdRoute
@@ -332,7 +339,7 @@ export interface FileRoutesByTo {
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/influenciadores': typeof AdminInfluenciadoresRoute
   '/admin/notificacoes': typeof AdminNotificacoesRoute
-  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/usuarios': typeof AdminUsuariosRouteWithChildren
   '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
   '/app/desafios': typeof AppDesafiosRoute
@@ -357,6 +364,7 @@ export interface FileRoutesByTo {
   '/app': typeof AppIndexRoute
   '/inf': typeof InfIndexRoute
   '/pro': typeof ProIndexRoute
+  '/admin/usuarios/novo': typeof AdminUsuariosNovoRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
   '/pro/alunos/$id': typeof ProAlunosIdRoute
@@ -379,7 +387,7 @@ export interface FileRoutesById {
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/influenciadores': typeof AdminInfluenciadoresRoute
   '/admin/notificacoes': typeof AdminNotificacoesRoute
-  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/usuarios': typeof AdminUsuariosRouteWithChildren
   '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
   '/app/desafios': typeof AppDesafiosRoute
@@ -404,6 +412,7 @@ export interface FileRoutesById {
   '/app/': typeof AppIndexRoute
   '/inf/': typeof InfIndexRoute
   '/pro/': typeof ProIndexRoute
+  '/admin/usuarios/novo': typeof AdminUsuariosNovoRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
   '/pro/alunos/$id': typeof ProAlunosIdRoute
@@ -452,6 +461,7 @@ export interface FileRouteTypes {
     | '/app/'
     | '/inf/'
     | '/pro/'
+    | '/admin/usuarios/novo'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
     | '/pro/alunos/$id'
@@ -494,6 +504,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/inf'
     | '/pro'
+    | '/admin/usuarios/novo'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
     | '/pro/alunos/$id'
@@ -540,6 +551,7 @@ export interface FileRouteTypes {
     | '/app/'
     | '/inf/'
     | '/pro/'
+    | '/admin/usuarios/novo'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
     | '/pro/alunos/$id'
@@ -869,8 +881,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRunIniciarRouteImport
       parentRoute: typeof AppRoute
     }
+    '/admin/usuarios/novo': {
+      id: '/admin/usuarios/novo'
+      path: '/novo'
+      fullPath: '/admin/usuarios/novo'
+      preLoaderRoute: typeof AdminUsuariosNovoRouteImport
+      parentRoute: typeof AdminUsuariosRoute
+    }
   }
 }
+
+interface AdminUsuariosRouteChildren {
+  AdminUsuariosNovoRoute: typeof AdminUsuariosNovoRoute
+}
+
+const AdminUsuariosRouteChildren: AdminUsuariosRouteChildren = {
+  AdminUsuariosNovoRoute: AdminUsuariosNovoRoute,
+}
+
+const AdminUsuariosRouteWithChildren = AdminUsuariosRoute._addFileChildren(
+  AdminUsuariosRouteChildren,
+)
 
 interface AdminRouteChildren {
   AdminAuditoriaRoute: typeof AdminAuditoriaRoute
@@ -879,7 +910,7 @@ interface AdminRouteChildren {
   AdminFinanceiroRoute: typeof AdminFinanceiroRoute
   AdminInfluenciadoresRoute: typeof AdminInfluenciadoresRoute
   AdminNotificacoesRoute: typeof AdminNotificacoesRoute
-  AdminUsuariosRoute: typeof AdminUsuariosRoute
+  AdminUsuariosRoute: typeof AdminUsuariosRouteWithChildren
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -890,7 +921,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminFinanceiroRoute: AdminFinanceiroRoute,
   AdminInfluenciadoresRoute: AdminInfluenciadoresRoute,
   AdminNotificacoesRoute: AdminNotificacoesRoute,
-  AdminUsuariosRoute: AdminUsuariosRoute,
+  AdminUsuariosRoute: AdminUsuariosRouteWithChildren,
   AdminIndexRoute: AdminIndexRoute,
 }
 
