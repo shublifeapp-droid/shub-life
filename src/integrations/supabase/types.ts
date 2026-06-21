@@ -316,6 +316,53 @@ export type Database = {
           },
         ]
       }
+      gps_points: {
+        Row: {
+          accuracy: number | null
+          activity_id: string
+          altitude: number | null
+          created_at: string
+          id: string
+          latitude: number
+          longitude: number
+          recorded_at: string
+          speed: number | null
+          user_id: string
+        }
+        Insert: {
+          accuracy?: number | null
+          activity_id: string
+          altitude?: number | null
+          created_at?: string
+          id?: string
+          latitude: number
+          longitude: number
+          recorded_at?: string
+          speed?: number | null
+          user_id: string
+        }
+        Update: {
+          accuracy?: number | null
+          activity_id?: string
+          altitude?: number | null
+          created_at?: string
+          id?: string
+          latitude?: number
+          longitude?: number
+          recorded_at?: string
+          speed?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gps_points_activity_id_fkey"
+            columns: ["activity_id"]
+            isOneToOne: false
+            referencedRelation: "running_activities"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       likes: {
         Row: {
           created_at: string
@@ -707,6 +754,66 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      running_activities: {
+        Row: {
+          activity_type: string
+          avg_pace: number | null
+          avg_speed: number | null
+          calories: number
+          created_at: string
+          distance_km: number
+          duration_seconds: number
+          end_time: string | null
+          id: string
+          map_image_url: string | null
+          notes: string | null
+          route_polyline: string | null
+          shub_score_delta: number
+          start_time: string
+          updated_at: string
+          user_id: string
+          xp_earned: number
+        }
+        Insert: {
+          activity_type?: string
+          avg_pace?: number | null
+          avg_speed?: number | null
+          calories?: number
+          created_at?: string
+          distance_km?: number
+          duration_seconds?: number
+          end_time?: string | null
+          id?: string
+          map_image_url?: string | null
+          notes?: string | null
+          route_polyline?: string | null
+          shub_score_delta?: number
+          start_time?: string
+          updated_at?: string
+          user_id: string
+          xp_earned?: number
+        }
+        Update: {
+          activity_type?: string
+          avg_pace?: number | null
+          avg_speed?: number | null
+          calories?: number
+          created_at?: string
+          distance_km?: number
+          duration_seconds?: number
+          end_time?: string | null
+          id?: string
+          map_image_url?: string | null
+          notes?: string | null
+          route_polyline?: string | null
+          shub_score_delta?: number
+          start_time?: string
+          updated_at?: string
+          user_id?: string
+          xp_earned?: number
+        }
+        Relationships: []
       }
       shub_scores: {
         Row: {
