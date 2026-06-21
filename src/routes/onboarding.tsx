@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { Logo } from "@/components/shub/Logo";
 
 export const Route = createFileRoute("/onboarding")({
   component: Onboarding,
@@ -32,8 +33,8 @@ function Onboarding() {
     <div className="relative flex min-h-screen flex-col bg-background px-6 pb-10 pt-12">
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "var(--gradient-radial-neon)" }} />
 
-      <div className="relative z-10 flex justify-between">
-        <span className="font-display text-sm font-semibold tracking-widest text-neon">SHUB LIFE</span>
+      <div className="relative z-10 flex items-center justify-between">
+        <Logo className="h-9 w-auto" />
         <Link to="/login" className="text-xs text-muted-foreground">Pular</Link>
       </div>
 
