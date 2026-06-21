@@ -24,7 +24,9 @@ import { Route as AppEvolucaoRouteImport } from './routes/app.evolucao'
 import { Route as AppDesafiosRouteImport } from './routes/app.desafios'
 import { Route as AppComunidadeRouteImport } from './routes/app.comunidade'
 import { Route as AppAssinaturaRouteImport } from './routes/app.assinatura'
+import { Route as AppRunIndexRouteImport } from './routes/app.run.index'
 import { Route as AppTreinosIdRouteImport } from './routes/app.treinos.$id'
+import { Route as AppRunIniciarRouteImport } from './routes/app.run.iniciar'
 
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
@@ -101,10 +103,20 @@ const AppAssinaturaRoute = AppAssinaturaRouteImport.update({
   path: '/assinatura',
   getParentRoute: () => AppRoute,
 } as any)
+const AppRunIndexRoute = AppRunIndexRouteImport.update({
+  id: '/run/',
+  path: '/run/',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppTreinosIdRoute = AppTreinosIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => AppTreinosRoute,
+} as any)
+const AppRunIniciarRoute = AppRunIniciarRouteImport.update({
+  id: '/run/iniciar',
+  path: '/run/iniciar',
+  getParentRoute: () => AppRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -123,7 +135,9 @@ export interface FileRoutesByFullPath {
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
   '/app/': typeof AppIndexRoute
+  '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
+  '/app/run/': typeof AppRunIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -140,7 +154,9 @@ export interface FileRoutesByTo {
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
   '/app': typeof AppIndexRoute
+  '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
+  '/app/run': typeof AppRunIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -159,7 +175,9 @@ export interface FileRoutesById {
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
   '/app/': typeof AppIndexRoute
+  '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
+  '/app/run/': typeof AppRunIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -179,7 +197,9 @@ export interface FileRouteTypes {
     | '/app/score'
     | '/app/treinos'
     | '/app/'
+    | '/app/run/iniciar'
     | '/app/treinos/$id'
+    | '/app/run/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -196,7 +216,9 @@ export interface FileRouteTypes {
     | '/app/score'
     | '/app/treinos'
     | '/app'
+    | '/app/run/iniciar'
     | '/app/treinos/$id'
+    | '/app/run'
   id:
     | '__root__'
     | '/'
@@ -214,7 +236,9 @@ export interface FileRouteTypes {
     | '/app/score'
     | '/app/treinos'
     | '/app/'
+    | '/app/run/iniciar'
     | '/app/treinos/$id'
+    | '/app/run/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -332,12 +356,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAssinaturaRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/run/': {
+      id: '/app/run/'
+      path: '/run'
+      fullPath: '/app/run/'
+      preLoaderRoute: typeof AppRunIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/treinos/$id': {
       id: '/app/treinos/$id'
       path: '/$id'
       fullPath: '/app/treinos/$id'
       preLoaderRoute: typeof AppTreinosIdRouteImport
       parentRoute: typeof AppTreinosRoute
+    }
+    '/app/run/iniciar': {
+      id: '/app/run/iniciar'
+      path: '/run/iniciar'
+      fullPath: '/app/run/iniciar'
+      preLoaderRoute: typeof AppRunIniciarRouteImport
+      parentRoute: typeof AppRoute
     }
   }
 }
@@ -365,6 +403,8 @@ interface AppRouteChildren {
   AppScoreRoute: typeof AppScoreRoute
   AppTreinosRoute: typeof AppTreinosRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
+  AppRunIniciarRoute: typeof AppRunIniciarRoute
+  AppRunIndexRoute: typeof AppRunIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -378,6 +418,8 @@ const AppRouteChildren: AppRouteChildren = {
   AppScoreRoute: AppScoreRoute,
   AppTreinosRoute: AppTreinosRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
+  AppRunIniciarRoute: AppRunIniciarRoute,
+  AppRunIndexRoute: AppRunIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
