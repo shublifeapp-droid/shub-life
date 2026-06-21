@@ -363,6 +363,134 @@ export type Database = {
           },
         ]
       }
+      influencer_commissions: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          influencer_id: string
+          period_month: string | null
+          referral_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          influencer_id: string
+          period_month?: string | null
+          referral_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          influencer_id?: string
+          period_month?: string | null
+          referral_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "influencer_commissions_influencer_id_fkey"
+            columns: ["influencer_id"]
+            isOneToOne: false
+            referencedRelation: "influencers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "influencer_commissions_referral_id_fkey"
+            columns: ["referral_id"]
+            isOneToOne: false
+            referencedRelation: "influencer_referrals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      influencer_referrals: {
+        Row: {
+          created_at: string
+          id: string
+          influencer_id: string
+          referred_user_id: string
+          status: string
+          subscription_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          influencer_id: string
+          referred_user_id: string
+          status?: string
+          subscription_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          influencer_id?: string
+          referred_user_id?: string
+          status?: string
+          subscription_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "influencer_referrals_influencer_id_fkey"
+            columns: ["influencer_id"]
+            isOneToOne: false
+            referencedRelation: "influencers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      influencers: {
+        Row: {
+          code: string
+          commission_rate: number
+          created_at: string
+          current_balance: number
+          display_name: string | null
+          id: string
+          pending_balance: number
+          status: string
+          total_earned: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          commission_rate?: number
+          created_at?: string
+          current_balance?: number
+          display_name?: string | null
+          id?: string
+          pending_balance?: number
+          status?: string
+          total_earned?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          code?: string
+          commission_rate?: number
+          created_at?: string
+          current_balance?: number
+          display_name?: string | null
+          id?: string
+          pending_balance?: number
+          status?: string
+          total_earned?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       likes: {
         Row: {
           created_at: string
@@ -1220,7 +1348,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "student" | "personal" | "admin"
+      app_role: "student" | "personal" | "admin" | "influencer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1348,7 +1476,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["student", "personal", "admin"],
+      app_role: ["student", "personal", "admin", "influencer"],
     },
   },
 } as const
