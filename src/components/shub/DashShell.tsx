@@ -72,7 +72,7 @@ export function DashShell({ title, subtitle, items, children }: Props) {
 
       {/* Mobile top bar */}
       <header className="sticky top-0 z-20 flex items-center justify-between border-b border-border bg-background/80 px-4 py-3 backdrop-blur-xl md:hidden">
-        <Logo className="h-7 w-auto" />
+        <Logo className="h-7 w-auto object-contain" />
         <p className="text-[10px] uppercase tracking-[0.25em] text-neon">{title}</p>
       </header>
 
