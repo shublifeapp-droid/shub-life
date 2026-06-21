@@ -2,12 +2,15 @@ import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, User, Dumbbell } from "lucide-react";
 import { Logo } from "@/components/shub/Logo";
+import { routeAfterLogin } from "@/lib/shub/routeAfterLogin";
 
 export const Route = createFileRoute("/cadastro")({
   component: Cadastro,
 });
+
+type Role = "student" | "personal";
 
 function Cadastro() {
   const navigate = useNavigate();
@@ -15,6 +18,7 @@ function Cadastro() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState<Role>("student");
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,21 +29,29 @@ function Cadastro() {
         email,
         password,
         options: {
+          emailRedirectTo: `${window.location.origin}/app`,
           data: {
             full_name: name,
             nickname: name.split(" ")[0],
+            desired_role: role,
           },
         },
       });
 
       if (error) {
         toast.error(error.message);
+        return;
+      }
+
+      if (data.session) {
+        toast.success("Conta criada!");
+        const dest = await routeAfterLogin();
+        navigate({ to: dest });
       } else {
-        // If profile was created, we can update it (handled by trigger/initial insert usually)
         toast.success("Conta criada! Verifique seu e-mail.");
         navigate({ to: "/login" });
       }
-    } catch (error) {
+    } catch {
       toast.error("Erro ao criar conta");
     } finally {
       setLoading(false);
@@ -61,7 +73,12 @@ function Cadastro() {
           <p className="mt-2 text-sm text-muted-foreground">Comece sua jornada SHUB LIFE.</p>
         </div>
 
-        <form className="mt-10 space-y-4" onSubmit={handleSignup}>
+        <div className="mt-6 grid grid-cols-2 gap-2 rounded-2xl border border-border bg-surface p-1">
+          <RoleTab active={role === "student"} onClick={() => setRole("student")} icon={User} label="Sou Aluno" />
+          <RoleTab active={role === "personal"} onClick={() => setRole("personal")} icon={Dumbbell} label="Sou Profissional" />
+        </div>
+
+        <form className="mt-6 space-y-4" onSubmit={handleSignup}>
           <Field
             label="Nome completo"
             placeholder="Seu nome"
