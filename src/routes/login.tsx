@@ -3,36 +3,38 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, User, Dumbbell } from "lucide-react";
 import { Logo } from "@/components/shub/Logo";
+import { routeAfterLogin } from "@/lib/shub/routeAfterLogin";
 
 export const Route = createFileRoute("/login")({
   component: Login,
 });
+
+type Role = "student" | "personal";
 
 function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState<Role>("student");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
 
       if (error) {
         toast.error(error.message);
-      } else {
-        toast.success("Bem-vindo de volta!");
-        navigate({ to: "/app" });
+        return;
       }
-    } catch (error) {
+      toast.success("Bem-vindo de volta!");
+      const dest = await routeAfterLogin();
+      navigate({ to: dest });
+    } catch {
       toast.error("Erro ao realizar login");
     } finally {
       setLoading(false);
@@ -42,13 +44,10 @@ function Login() {
   const handleOAuth = async (provider: "google" | "apple") => {
     try {
       const result = await lovable.auth.signInWithOAuth(provider, {
-        redirect_uri: window.location.origin + "/app",
+        redirect_uri: window.location.origin + (role === "personal" ? "/pro" : "/app"),
       });
-
-      if (result.error) {
-        toast.error(result.error.message);
-      }
-    } catch (error) {
+      if (result.error) toast.error(result.error.message);
+    } catch {
       toast.error("Erro ao conectar");
     }
   };
