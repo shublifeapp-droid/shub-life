@@ -1,5 +1,5 @@
 import { Link, Outlet, createFileRoute, useRouterState } from "@tanstack/react-router";
-import { Home, Zap, Dumbbell, Users, User, Sparkles } from "lucide-react";
+import { Home, Zap, Dumbbell, Footprints, Users, User, Sparkles } from "lucide-react";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -9,6 +9,7 @@ const tabs = [
   { to: "/app", label: "Home", icon: Home, exact: true },
   { to: "/app/score", label: "Score", icon: Zap, exact: false },
   { to: "/app/treinos", label: "Treinos", icon: Dumbbell, exact: false },
+  { to: "/app/run", label: "Run", icon: Footprints, exact: false },
   { to: "/app/comunidade", label: "Comunidade", icon: Users, exact: false },
   { to: "/app/perfil", label: "Perfil", icon: User, exact: false },
 ] as const;
@@ -26,7 +27,6 @@ function AppLayout() {
         to="/app"
         aria-label="Assistente IA"
         className="fixed bottom-24 right-4 z-40 grid h-14 w-14 place-items-center rounded-full bg-neon text-neon-foreground glow-neon pulse-neon active:scale-95 transition-transform"
-        style={{ left: "calc(50% + 0px)", transform: "translateX(calc(50% - 16px - 56px))" }}
       >
         <Sparkles className="h-6 w-6" strokeWidth={2.5} />
       </Link>
