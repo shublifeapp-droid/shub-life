@@ -3,6 +3,7 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { Logo } from "@/components/shub/Logo";
 
 export const Route = createFileRoute("/cadastro")({
   component: Cadastro,
@@ -50,7 +51,10 @@ function Cadastro() {
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "var(--gradient-radial-neon)" }} />
 
       <div className="relative z-10">
-        <Link to="/onboarding" className="text-xs text-muted-foreground">← Voltar</Link>
+        <div className="flex items-center justify-between">
+          <Link to="/onboarding" className="text-xs text-muted-foreground">← Voltar</Link>
+          <Logo className="h-8 w-auto" />
+        </div>
 
         <div className="mt-8 fade-up">
           <h1 className="font-display text-3xl font-bold leading-tight">Crie sua conta</h1>

@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { Logo } from "@/components/shub/Logo";
 
 export const Route = createFileRoute("/login")({
   component: Login,
@@ -57,12 +58,7 @@ function Login() {
       <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "var(--gradient-radial-neon)" }} />
 
       <div className="relative z-10">
-        <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-xl border border-neon/40 bg-surface-elevated">
-            <span className="font-display font-bold text-neon">S</span>
-          </div>
-          <span className="font-display text-sm font-semibold tracking-widest">SHUB LIFE</span>
-        </div>
+        <Logo className="h-10 w-auto" />
 
         <div className="mt-10 fade-up">
           <h1 className="font-display text-3xl font-bold leading-tight">Bem-vindo de volta</h1>

@@ -1,6 +1,7 @@
 import { Link, Outlet, createFileRoute, redirect, useRouterState } from "@tanstack/react-router";
 import { Home, Zap, Dumbbell, Footprints, Users, User, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { Logo } from "@/components/shub/Logo";
 
 export const Route = createFileRoute("/app")({
   ssr: false,
@@ -26,6 +27,9 @@ function AppLayout() {
 
   return (
     <div className="relative mx-auto min-h-screen max-w-md bg-background pb-28">
+      <div className="sticky top-0 z-20 flex items-center justify-center border-b border-border/40 bg-background/80 px-5 py-3 backdrop-blur-xl">
+        <Logo className="h-7 w-auto" />
+      </div>
       <Outlet />
 
       {/* Floating AI assistant */}

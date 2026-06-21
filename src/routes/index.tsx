@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Logo } from "@/components/shub/Logo";
 
 export const Route = createFileRoute("/")({
   component: Splash,
@@ -20,19 +21,11 @@ function Splash() {
 
       <div className="relative z-10 flex flex-col items-center gap-6 fade-up">
         <div className="relative">
-          <div className="absolute inset-0 rounded-3xl bg-neon/30 blur-2xl" />
-          <div className="relative grid h-24 w-24 place-items-center rounded-3xl border border-neon/40 bg-surface-elevated glow-neon">
-            <span className="font-display text-3xl font-bold text-neon">S</span>
-          </div>
-        </div>
-        <div className="text-center">
-          <h1 className="font-display text-4xl font-bold tracking-tight">
-            SHUB <span className="text-neon">LIFE</span>
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">Muito além do treino</p>
+          <div className="absolute inset-0 rounded-3xl bg-neon/30 blur-3xl" />
+          <Logo className="relative h-56 w-auto drop-shadow-[0_0_30px_rgba(183,255,0,0.35)]" />
         </div>
 
-        <div className="mt-8 h-1 w-40 overflow-hidden rounded-full bg-surface-elevated">
+        <div className="mt-4 h-1 w-40 overflow-hidden rounded-full bg-surface-elevated">
           <div className="h-full w-1/2 bg-neon shimmer" />
         </div>
       </div>
