@@ -25,6 +25,7 @@ import { Route as RCodeRouteImport } from './routes/r.$code'
 import { Route as ProTreinosRouteImport } from './routes/pro.treinos'
 import { Route as ProNotificacoesRouteImport } from './routes/pro.notificacoes'
 import { Route as ProFinanceiroRouteImport } from './routes/pro.financeiro'
+import { Route as ProEnviarNotificacaoRouteImport } from './routes/pro.enviar-notificacao'
 import { Route as ProContratosRouteImport } from './routes/pro.contratos'
 import { Route as ProCobrancasRouteImport } from './routes/pro.cobrancas'
 import { Route as ProAlunosRouteImport } from './routes/pro.alunos'
@@ -131,6 +132,11 @@ const ProNotificacoesRoute = ProNotificacoesRouteImport.update({
 const ProFinanceiroRoute = ProFinanceiroRouteImport.update({
   id: '/financeiro',
   path: '/financeiro',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProEnviarNotificacaoRoute = ProEnviarNotificacaoRouteImport.update({
+  id: '/enviar-notificacao',
+  path: '/enviar-notificacao',
   getParentRoute: () => ProRoute,
 } as any)
 const ProContratosRoute = ProContratosRouteImport.update({
@@ -300,6 +306,7 @@ export interface FileRoutesByFullPath {
   '/pro/alunos': typeof ProAlunosRouteWithChildren
   '/pro/cobrancas': typeof ProCobrancasRoute
   '/pro/contratos': typeof ProContratosRoute
+  '/pro/enviar-notificacao': typeof ProEnviarNotificacaoRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
   '/pro/treinos': typeof ProTreinosRouteWithChildren
@@ -341,6 +348,7 @@ export interface FileRoutesByTo {
   '/pro/alunos': typeof ProAlunosRouteWithChildren
   '/pro/cobrancas': typeof ProCobrancasRoute
   '/pro/contratos': typeof ProContratosRoute
+  '/pro/enviar-notificacao': typeof ProEnviarNotificacaoRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
   '/pro/treinos': typeof ProTreinosRouteWithChildren
@@ -387,6 +395,7 @@ export interface FileRoutesById {
   '/pro/alunos': typeof ProAlunosRouteWithChildren
   '/pro/cobrancas': typeof ProCobrancasRoute
   '/pro/contratos': typeof ProContratosRoute
+  '/pro/enviar-notificacao': typeof ProEnviarNotificacaoRoute
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
   '/pro/treinos': typeof ProTreinosRouteWithChildren
@@ -434,6 +443,7 @@ export interface FileRouteTypes {
     | '/pro/alunos'
     | '/pro/cobrancas'
     | '/pro/contratos'
+    | '/pro/enviar-notificacao'
     | '/pro/financeiro'
     | '/pro/notificacoes'
     | '/pro/treinos'
@@ -475,6 +485,7 @@ export interface FileRouteTypes {
     | '/pro/alunos'
     | '/pro/cobrancas'
     | '/pro/contratos'
+    | '/pro/enviar-notificacao'
     | '/pro/financeiro'
     | '/pro/notificacoes'
     | '/pro/treinos'
@@ -520,6 +531,7 @@ export interface FileRouteTypes {
     | '/pro/alunos'
     | '/pro/cobrancas'
     | '/pro/contratos'
+    | '/pro/enviar-notificacao'
     | '/pro/financeiro'
     | '/pro/notificacoes'
     | '/pro/treinos'
@@ -659,6 +671,13 @@ declare module '@tanstack/react-router' {
       path: '/financeiro'
       fullPath: '/pro/financeiro'
       preLoaderRoute: typeof ProFinanceiroRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/enviar-notificacao': {
+      id: '/pro/enviar-notificacao'
+      path: '/enviar-notificacao'
+      fullPath: '/pro/enviar-notificacao'
+      preLoaderRoute: typeof ProEnviarNotificacaoRouteImport
       parentRoute: typeof ProRoute
     }
     '/pro/contratos': {
@@ -965,6 +984,7 @@ interface ProRouteChildren {
   ProAlunosRoute: typeof ProAlunosRouteWithChildren
   ProCobrancasRoute: typeof ProCobrancasRoute
   ProContratosRoute: typeof ProContratosRoute
+  ProEnviarNotificacaoRoute: typeof ProEnviarNotificacaoRoute
   ProFinanceiroRoute: typeof ProFinanceiroRoute
   ProNotificacoesRoute: typeof ProNotificacoesRoute
   ProTreinosRoute: typeof ProTreinosRouteWithChildren
@@ -975,6 +995,7 @@ const ProRouteChildren: ProRouteChildren = {
   ProAlunosRoute: ProAlunosRouteWithChildren,
   ProCobrancasRoute: ProCobrancasRoute,
   ProContratosRoute: ProContratosRoute,
+  ProEnviarNotificacaoRoute: ProEnviarNotificacaoRoute,
   ProFinanceiroRoute: ProFinanceiroRoute,
   ProNotificacoesRoute: ProNotificacoesRoute,
   ProTreinosRoute: ProTreinosRouteWithChildren,
