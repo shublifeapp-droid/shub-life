@@ -1,7 +1,13 @@
-import { Link, Outlet, createFileRoute, useRouterState } from "@tanstack/react-router";
+import { Link, Outlet, createFileRoute, redirect, useRouterState } from "@tanstack/react-router";
 import { Home, Zap, Dumbbell, Footprints, Users, User, Sparkles } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/app")({
+  ssr: false,
+  beforeLoad: async () => {
+    const { data } = await supabase.auth.getUser();
+    if (!data.user) throw redirect({ to: "/login" });
+  },
   component: AppLayout,
 });
 
