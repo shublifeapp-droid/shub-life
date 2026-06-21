@@ -137,3 +137,18 @@ function Field({ label, ...props }: React.InputHTMLAttributes<HTMLInputElement> 
     </label>
   );
 }
+
+function RoleTab({ active, onClick, icon: Icon, label }: { active: boolean; onClick: () => void; icon: React.ElementType; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-medium transition ${
+        active ? "bg-neon text-neon-foreground glow-neon" : "text-muted-foreground hover:text-foreground"
+      }`}
+    >
+      <Icon className="h-4 w-4" />
+      {label}
+    </button>
+  );
+}
