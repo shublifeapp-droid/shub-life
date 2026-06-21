@@ -2,6 +2,7 @@ import { Link, Outlet, createFileRoute, redirect, useRouterState } from "@tansta
 import { Home, Zap, Dumbbell, Footprints, Users, User, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "@/components/shub/Logo";
+import { NotificationsBell } from "@/components/shub/NotificationsBell";
 
 export const Route = createFileRoute("/app")({
   ssr: false,
@@ -27,8 +28,10 @@ function AppLayout() {
 
   return (
     <div className="relative mx-auto min-h-screen max-w-md bg-background pb-28">
-      <div className="sticky top-0 z-20 flex items-center justify-center border-b border-border/40 bg-background/80 px-5 py-3 backdrop-blur-xl">
+      <div className="sticky top-0 z-20 flex items-center justify-between border-b border-border/40 bg-background/80 px-5 py-3 backdrop-blur-xl">
+        <span className="w-9" aria-hidden />
         <Logo className="h-7 w-auto" />
+        <NotificationsBell />
       </div>
       <Outlet />
 
