@@ -64,7 +64,12 @@ function Login() {
           <p className="mt-2 text-sm text-muted-foreground">Continue sua evolução de onde parou.</p>
         </div>
 
-        <form className="mt-10 space-y-4" onSubmit={handleLogin}>
+        <div className="mt-6 grid grid-cols-2 gap-2 rounded-2xl border border-border bg-surface p-1">
+          <RoleTab active={role === "student"} onClick={() => setRole("student")} icon={User} label="Aluno" />
+          <RoleTab active={role === "personal"} onClick={() => setRole("personal")} icon={Dumbbell} label="Profissional" />
+        </div>
+
+        <form className="mt-6 space-y-4" onSubmit={handleLogin}>
           <Field
             label="E-mail"
             type="email"
