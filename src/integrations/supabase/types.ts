@@ -41,6 +41,90 @@ export type Database = {
         }
         Relationships: []
       }
+      app_settings: {
+        Row: {
+          commission_percentage: number
+          id: string
+          personal_premium_price: number
+          personal_pro_price: number
+          student_premium_price: number
+          updated_at: string
+        }
+        Insert: {
+          commission_percentage?: number
+          id?: string
+          personal_premium_price?: number
+          personal_pro_price?: number
+          student_premium_price?: number
+          updated_at?: string
+        }
+        Update: {
+          commission_percentage?: number
+          id?: string
+          personal_premium_price?: number
+          personal_pro_price?: number
+          student_premium_price?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      audit_logs: {
+        Row: {
+          action: string
+          created_at: string
+          entity: string
+          entity_id: string | null
+          id: string
+          metadata: Json | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          entity: string
+          entity_id?: string | null
+          id?: string
+          metadata?: Json | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          entity?: string
+          entity_id?: string | null
+          id?: string
+          metadata?: Json | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      badges: {
+        Row: {
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          level: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          level?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          level?: string
+          name?: string
+        }
+        Relationships: []
+      }
       challenge_participations: {
         Row: {
           challenge_id: string
@@ -106,6 +190,215 @@ export type Database = {
           title?: string
           type?: string | null
           xp_reward?: number | null
+        }
+        Relationships: []
+      }
+      comments: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          post_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          post_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      commissions: {
+        Row: {
+          amount: number
+          created_at: string
+          generated_at: string
+          id: string
+          personal_id: string
+          status: string
+          student_id: string
+          subscription_id: string | null
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          generated_at?: string
+          id?: string
+          personal_id: string
+          status?: string
+          student_id: string
+          subscription_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          generated_at?: string
+          id?: string
+          personal_id?: string
+          status?: string
+          student_id?: string
+          subscription_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "commissions_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exercises: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          notes: string | null
+          order_position: number
+          reps: string
+          rest_time: number
+          sets: number
+          updated_at: string
+          workout_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          notes?: string | null
+          order_position?: number
+          reps?: string
+          rest_time?: number
+          sets?: number
+          updated_at?: string
+          workout_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          notes?: string | null
+          order_position?: number
+          reps?: string
+          rest_time?: number
+          sets?: number
+          updated_at?: string
+          workout_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exercises_workout_id_fkey"
+            columns: ["workout_id"]
+            isOneToOne: false
+            referencedRelation: "workouts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      likes: {
+        Row: {
+          created_at: string
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mood_logs: {
+        Row: {
+          created_at: string
+          id: string
+          logged_at: string
+          mood: number
+          notes: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logged_at?: string
+          mood: number
+          notes?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logged_at?: string
+          mood?: number
+          notes?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          title: string
+          type?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          title?: string
+          type?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -200,6 +493,39 @@ export type Database = {
           },
         ]
       }
+      personal_students: {
+        Row: {
+          created_at: string
+          end_date: string | null
+          id: string
+          personal_id: string
+          start_date: string
+          status: string
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          personal_id: string
+          start_date?: string
+          status?: string
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          personal_id?: string
+          start_date?: string
+          status?: string
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       pillars_data: {
         Row: {
           agua: number | null
@@ -239,6 +565,42 @@ export type Database = {
         }
         Relationships: []
       }
+      posts: {
+        Row: {
+          comments_count: number
+          content: string
+          created_at: string
+          deleted_at: string | null
+          id: string
+          image_url: string | null
+          likes_count: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          comments_count?: number
+          content: string
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          image_url?: string | null
+          likes_count?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          comments_count?: number
+          content?: string
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          image_url?: string | null
+          likes_count?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -269,6 +631,39 @@ export type Database = {
           nickname?: string | null
           shub_score?: number | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      rankings: {
+        Row: {
+          city: string | null
+          created_at: string
+          id: string
+          period: string
+          position: number
+          score: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          id?: string
+          period?: string
+          position?: number
+          score?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          id?: string
+          period?: string
+          position?: number
+          score?: number
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -313,6 +708,45 @@ export type Database = {
           },
         ]
       }
+      shub_scores: {
+        Row: {
+          created_at: string
+          discipline_score: number
+          id: string
+          mood_score: number
+          score_date: string
+          sleep_score: number
+          total_score: number
+          user_id: string
+          water_score: number
+          workout_score: number
+        }
+        Insert: {
+          created_at?: string
+          discipline_score?: number
+          id?: string
+          mood_score?: number
+          score_date?: string
+          sleep_score?: number
+          total_score?: number
+          user_id: string
+          water_score?: number
+          workout_score?: number
+        }
+        Update: {
+          created_at?: string
+          discipline_score?: number
+          id?: string
+          mood_score?: number
+          score_date?: string
+          sleep_score?: number
+          total_score?: number
+          user_id?: string
+          water_score?: number
+          workout_score?: number
+        }
+        Relationships: []
+      }
       sleep_logs: {
         Row: {
           awake_minutes: number | null
@@ -351,6 +785,125 @@ export type Database = {
           score?: number | null
           stages_data?: Json | null
           total_minutes?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      streaks: {
+        Row: {
+          best_streak: number
+          created_at: string
+          current_streak: number
+          id: string
+          last_activity_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          best_streak?: number
+          created_at?: string
+          current_streak?: number
+          id?: string
+          last_activity_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          best_streak?: number
+          created_at?: string
+          current_streak?: number
+          id?: string
+          last_activity_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          billing_cycle: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          plan_type: string
+          price: number
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          billing_cycle?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          plan_type: string
+          price?: number
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          billing_cycle?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          plan_type?: string
+          price?: number
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_badges: {
+        Row: {
+          badge_id: string
+          earned_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          badge_id: string
+          earned_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          badge_id?: string
+          earned_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_badges_badge_id_fkey"
+            columns: ["badge_id"]
+            isOneToOne: false
+            referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
         }
         Relationships: []
@@ -398,6 +951,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      wallets: {
+        Row: {
+          balance: number
+          created_at: string
+          id: string
+          pending_balance: number
+          personal_id: string
+          total_earned: number
+          updated_at: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          id?: string
+          pending_balance?: number
+          personal_id: string
+          total_earned?: number
+          updated_at?: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          id?: string
+          pending_balance?: number
+          personal_id?: string
+          total_earned?: number
+          updated_at?: string
+        }
+        Relationships: []
       }
       water_logs: {
         Row: {
@@ -469,34 +1052,49 @@ export type Database = {
           category: string | null
           created_at: string | null
           description: string | null
+          difficulty: string | null
           duration_minutes: number | null
           estimated_calories: number | null
           exercises: Json | null
           id: string
           intensity: string | null
+          is_active: boolean
+          personal_id: string | null
+          student_id: string | null
           title: string
+          updated_at: string
         }
         Insert: {
           category?: string | null
           created_at?: string | null
           description?: string | null
+          difficulty?: string | null
           duration_minutes?: number | null
           estimated_calories?: number | null
           exercises?: Json | null
           id?: string
           intensity?: string | null
+          is_active?: boolean
+          personal_id?: string | null
+          student_id?: string | null
           title: string
+          updated_at?: string
         }
         Update: {
           category?: string | null
           created_at?: string | null
           description?: string | null
+          difficulty?: string | null
           duration_minutes?: number | null
           estimated_calories?: number | null
           exercises?: Json | null
           id?: string
           intensity?: string | null
+          is_active?: boolean
+          personal_id?: string | null
+          student_id?: string | null
           title?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -506,9 +1104,16 @@ export type Database = {
     }
     Functions: {
       get_partner_stats: { Args: { p_id: string }; Returns: Json }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "student" | "personal" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -635,6 +1240,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["student", "personal", "admin"],
+    },
   },
 } as const
