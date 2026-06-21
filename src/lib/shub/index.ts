@@ -11,3 +11,4 @@ export * from "./partner";
 export * from "./notifications";
 export * from "./insights";
 export * from "./retention";
+export * from "./running";
