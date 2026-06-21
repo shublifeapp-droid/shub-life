@@ -1,25 +1,57 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Flame, Trophy, Target, Users } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { Trophy, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { EmptyState } from "@/components/shub/EmptyState";
 
 export const Route = createFileRoute("/app/desafios")({
   component: DesafiosPage,
 });
 
-const active = [
-  { title: "30 dias sem faltar", icon: Flame, progress: 60, days: "18/30", reward: "500 XP + Medalha Gold" },
-  { title: "Maratona da semana", icon: Target, progress: 75, days: "5/7 dias", reward: "Badge Elite" },
-  { title: "10k passos diários", icon: Trophy, progress: 40, days: "4/10 dias", reward: "300 XP" },
-];
-
-const ranking = [
-  { pos: 1, name: "Marina S.", xp: 8420 },
-  { pos: 2, name: "Você", xp: 7180, me: true },
-  { pos: 3, name: "Rafael T.", xp: 6940 },
-  { pos: 4, name: "João P.", xp: 5210 },
-  { pos: 5, name: "Carla M.", xp: 4980 },
-];
+interface ChallengeWithProgress {
+  id: string;
+  title: string;
+  description: string | null;
+  xp_reward: number | null;
+  end_date: string | null;
+  progress_percent: number;
+}
 
 function DesafiosPage() {
+  const { user } = useCurrentUser();
+
+  const { data: active, isLoading } = useQuery({
+    queryKey: ["challenges-active", user?.id],
+    queryFn: async (): Promise<ChallengeWithProgress[]> => {
+      const today = new Date().toISOString().slice(0, 10);
+      const { data: challenges, error } = await supabase
+        .from("challenges")
+        .select("id, title, description, xp_reward, end_date")
+        .or(`end_date.is.null,end_date.gte.${today}`)
+        .order("end_date", { ascending: true, nullsFirst: false })
+        .limit(20);
+      if (error) throw error;
+      if (!challenges?.length || !user) return [];
+      const { data: parts } = await supabase
+        .from("challenge_participations")
+        .select("challenge_id, progress_percent")
+        .eq("user_id", user.id)
+        .in(
+          "challenge_id",
+          challenges.map((c) => c.id),
+        );
+      const map = new Map(
+        (parts ?? []).map((p) => [p.challenge_id, p.progress_percent ?? 0]),
+      );
+      return challenges.map((c) => ({
+        ...c,
+        progress_percent: map.get(c.id) ?? 0,
+      }));
+    },
+    enabled: !!user,
+  });
+
   return (
     <div className="px-5 pt-12 pb-10">
       <header className="fade-up">
@@ -27,57 +59,49 @@ function DesafiosPage() {
         <h1 className="mt-1 font-display text-3xl font-bold">Supere seus limites</h1>
       </header>
 
-      <section className="mt-6 space-y-3">
-        {active.map((c) => (
-          <div key={c.title} className="card-premium p-4 fade-up">
-            <div className="flex items-start gap-3">
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-neon/10 text-neon">
-                <c.icon className="h-5 w-5" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="font-semibold">{c.title}</p>
-                <p className="text-xs text-muted-foreground">{c.reward}</p>
-                <div className="mt-3 flex items-center gap-2">
-                  <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-secondary">
-                    <div
-                      className="h-full rounded-full bg-neon transition-all duration-700"
-                      style={{ width: `${c.progress}%`, boxShadow: "0 0 8px var(--neon)" }}
-                    />
+      {isLoading ? (
+        <div className="mt-10 flex justify-center text-muted-foreground">
+          <Loader2 className="h-5 w-5 animate-spin" />
+        </div>
+      ) : !active || active.length === 0 ? (
+        <div className="mt-8">
+          <EmptyState
+            icon={Trophy}
+            title="Sem desafios ativos"
+            description="Novos desafios semanais e mensais aparecem aqui. Volte em breve para somar XP."
+          />
+        </div>
+      ) : (
+        <section className="mt-6 space-y-3">
+          {active.map((c) => {
+            const pct = Math.min(100, Math.max(0, c.progress_percent));
+            return (
+              <div key={c.id} className="card-premium p-4 fade-up">
+                <div className="flex items-start gap-3">
+                  <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-neon/10 text-neon">
+                    <Trophy className="h-5 w-5" />
                   </div>
-                  <span className="text-xs font-semibold text-neon">{c.days}</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold">{c.title}</p>
+                    {c.xp_reward != null && (
+                      <p className="text-xs text-muted-foreground">+{c.xp_reward} XP</p>
+                    )}
+                    <div className="mt-3 flex items-center gap-2">
+                      <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-secondary">
+                        <div
+                          className="h-full rounded-full bg-neon transition-all duration-700"
+                          style={{ width: `${pct}%`, boxShadow: "0 0 8px var(--neon)" }}
+                        />
+                      </div>
+                      <span className="text-xs font-semibold text-neon">{pct}%</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
-      </section>
-
-      <h2 className="mt-8 flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-        <Users className="h-4 w-4" /> Ranking do desafio
-      </h2>
-
-      <div className="mt-3 card-premium overflow-hidden">
-        {ranking.map((r) => (
-          <div
-            key={r.pos}
-            className={`flex items-center justify-between border-b border-border px-4 py-3 last:border-0 ${
-              r.me ? "bg-neon/5" : ""
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <span
-                className={`grid h-8 w-8 place-items-center rounded-full text-xs font-bold ${
-                  r.pos === 1 ? "bg-tier-gold text-background" : r.pos === 2 ? "bg-tier-silver text-background" : r.pos === 3 ? "bg-tier-bronze text-background" : "bg-secondary text-foreground"
-                }`}
-              >
-                {r.pos}
-              </span>
-              <span className={`text-sm ${r.me ? "font-bold text-neon" : "font-medium"}`}>{r.name}</span>
-            </div>
-            <span className="text-sm font-semibold">{r.xp.toLocaleString("pt-BR")} XP</span>
-          </div>
-        ))}
-      </div>
+            );
+          })}
+        </section>
+      )}
     </div>
   );
 }
