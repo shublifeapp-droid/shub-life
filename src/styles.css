@@ -122,7 +122,22 @@ html, body {
     box-shadow: 0 0 0 1px color-mix(in oklab, var(--neon) 60%, transparent),
                 0 0 30px color-mix(in oklab, var(--neon) 25%, transparent);
   }
+
+  /* Level tiers */
+  .text-tier-bronze { color: var(--tier-bronze); }
+  .text-tier-silver { color: var(--tier-silver); }
+  .text-tier-gold { color: var(--tier-gold); }
+  .text-tier-elite { color: var(--tier-elite); }
+  .bg-tier-bronze { background-color: var(--tier-bronze); }
+  .bg-tier-silver { background-color: var(--tier-silver); }
+  .bg-tier-gold { background-color: var(--tier-gold); }
+  .bg-tier-elite { background-color: var(--tier-elite); }
+
+  /* Safe area for modern mobile devices */
+  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 }
+
 
 @keyframes pulse-neon {
   0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--neon) 50%, transparent); }
