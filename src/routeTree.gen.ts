@@ -12,17 +12,23 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProRouteImport } from './routes/pro'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as InfRouteImport } from './routes/inf'
 import { Route as CadastroRouteImport } from './routes/cadastro'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProIndexRouteImport } from './routes/pro.index'
+import { Route as InfIndexRouteImport } from './routes/inf.index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as RCodeRouteImport } from './routes/r.$code'
 import { Route as ProTreinosRouteImport } from './routes/pro.treinos'
 import { Route as ProNotificacoesRouteImport } from './routes/pro.notificacoes'
 import { Route as ProFinanceiroRouteImport } from './routes/pro.financeiro'
 import { Route as ProAlunosRouteImport } from './routes/pro.alunos'
+import { Route as InfLinkRouteImport } from './routes/inf.link'
+import { Route as InfIndicacoesRouteImport } from './routes/inf.indicacoes'
+import { Route as InfFinanceiroRouteImport } from './routes/inf.financeiro'
 import { Route as AppTreinosRouteImport } from './routes/app.treinos'
 import { Route as AppScoreRouteImport } from './routes/app.score'
 import { Route as AppRankingsRouteImport } from './routes/app.rankings'
@@ -34,6 +40,7 @@ import { Route as AppComunidadeRouteImport } from './routes/app.comunidade'
 import { Route as AppAssinaturaRouteImport } from './routes/app.assinatura'
 import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
 import { Route as AdminNotificacoesRouteImport } from './routes/admin.notificacoes'
+import { Route as AdminInfluenciadoresRouteImport } from './routes/admin.influenciadores'
 import { Route as AdminFinanceiroRouteImport } from './routes/admin.financeiro'
 import { Route as AdminConteudoRouteImport } from './routes/admin.conteudo'
 import { Route as AdminConfiguracoesRouteImport } from './routes/admin.configuracoes'
@@ -56,6 +63,11 @@ const OnboardingRoute = OnboardingRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfRoute = InfRouteImport.update({
+  id: '/inf',
+  path: '/inf',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CadastroRoute = CadastroRouteImport.update({
@@ -83,6 +95,11 @@ const ProIndexRoute = ProIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProRoute,
 } as any)
+const InfIndexRoute = InfIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => InfRoute,
+} as any)
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -92,6 +109,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
+} as any)
+const RCodeRoute = RCodeRouteImport.update({
+  id: '/r/$code',
+  path: '/r/$code',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ProTreinosRoute = ProTreinosRouteImport.update({
   id: '/treinos',
@@ -112,6 +134,21 @@ const ProAlunosRoute = ProAlunosRouteImport.update({
   id: '/alunos',
   path: '/alunos',
   getParentRoute: () => ProRoute,
+} as any)
+const InfLinkRoute = InfLinkRouteImport.update({
+  id: '/link',
+  path: '/link',
+  getParentRoute: () => InfRoute,
+} as any)
+const InfIndicacoesRoute = InfIndicacoesRouteImport.update({
+  id: '/indicacoes',
+  path: '/indicacoes',
+  getParentRoute: () => InfRoute,
+} as any)
+const InfFinanceiroRoute = InfFinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => InfRoute,
 } as any)
 const AppTreinosRoute = AppTreinosRouteImport.update({
   id: '/treinos',
@@ -168,6 +205,11 @@ const AdminNotificacoesRoute = AdminNotificacoesRouteImport.update({
   path: '/notificacoes',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminInfluenciadoresRoute = AdminInfluenciadoresRouteImport.update({
+  id: '/influenciadores',
+  path: '/influenciadores',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminFinanceiroRoute = AdminFinanceiroRouteImport.update({
   id: '/financeiro',
   path: '/financeiro',
@@ -214,6 +256,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/app': typeof AppRouteWithChildren
   '/cadastro': typeof CadastroRoute
+  '/inf': typeof InfRouteWithChildren
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/pro': typeof ProRouteWithChildren
@@ -221,6 +264,7 @@ export interface FileRoutesByFullPath {
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/conteudo': typeof AdminConteudoRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/influenciadores': typeof AdminInfluenciadoresRoute
   '/admin/notificacoes': typeof AdminNotificacoesRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/app/assinatura': typeof AppAssinaturaRoute
@@ -232,12 +276,17 @@ export interface FileRoutesByFullPath {
   '/app/rankings': typeof AppRankingsRoute
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
+  '/inf/financeiro': typeof InfFinanceiroRoute
+  '/inf/indicacoes': typeof InfIndicacoesRoute
+  '/inf/link': typeof InfLinkRoute
   '/pro/alunos': typeof ProAlunosRouteWithChildren
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
   '/pro/treinos': typeof ProTreinosRoute
+  '/r/$code': typeof RCodeRoute
   '/admin/': typeof AdminIndexRoute
   '/app/': typeof AppIndexRoute
+  '/inf/': typeof InfIndexRoute
   '/pro/': typeof ProIndexRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
@@ -253,6 +302,7 @@ export interface FileRoutesByTo {
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/conteudo': typeof AdminConteudoRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/influenciadores': typeof AdminInfluenciadoresRoute
   '/admin/notificacoes': typeof AdminNotificacoesRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/app/assinatura': typeof AppAssinaturaRoute
@@ -264,12 +314,17 @@ export interface FileRoutesByTo {
   '/app/rankings': typeof AppRankingsRoute
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
+  '/inf/financeiro': typeof InfFinanceiroRoute
+  '/inf/indicacoes': typeof InfIndicacoesRoute
+  '/inf/link': typeof InfLinkRoute
   '/pro/alunos': typeof ProAlunosRouteWithChildren
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
   '/pro/treinos': typeof ProTreinosRoute
+  '/r/$code': typeof RCodeRoute
   '/admin': typeof AdminIndexRoute
   '/app': typeof AppIndexRoute
+  '/inf': typeof InfIndexRoute
   '/pro': typeof ProIndexRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
@@ -282,6 +337,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/app': typeof AppRouteWithChildren
   '/cadastro': typeof CadastroRoute
+  '/inf': typeof InfRouteWithChildren
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
   '/pro': typeof ProRouteWithChildren
@@ -289,6 +345,7 @@ export interface FileRoutesById {
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/conteudo': typeof AdminConteudoRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
+  '/admin/influenciadores': typeof AdminInfluenciadoresRoute
   '/admin/notificacoes': typeof AdminNotificacoesRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
   '/app/assinatura': typeof AppAssinaturaRoute
@@ -300,12 +357,17 @@ export interface FileRoutesById {
   '/app/rankings': typeof AppRankingsRoute
   '/app/score': typeof AppScoreRoute
   '/app/treinos': typeof AppTreinosRouteWithChildren
+  '/inf/financeiro': typeof InfFinanceiroRoute
+  '/inf/indicacoes': typeof InfIndicacoesRoute
+  '/inf/link': typeof InfLinkRoute
   '/pro/alunos': typeof ProAlunosRouteWithChildren
   '/pro/financeiro': typeof ProFinanceiroRoute
   '/pro/notificacoes': typeof ProNotificacoesRoute
   '/pro/treinos': typeof ProTreinosRoute
+  '/r/$code': typeof RCodeRoute
   '/admin/': typeof AdminIndexRoute
   '/app/': typeof AppIndexRoute
+  '/inf/': typeof InfIndexRoute
   '/pro/': typeof ProIndexRoute
   '/app/run/iniciar': typeof AppRunIniciarRoute
   '/app/treinos/$id': typeof AppTreinosIdRoute
@@ -319,6 +381,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/cadastro'
+    | '/inf'
     | '/login'
     | '/onboarding'
     | '/pro'
@@ -326,6 +389,7 @@ export interface FileRouteTypes {
     | '/admin/configuracoes'
     | '/admin/conteudo'
     | '/admin/financeiro'
+    | '/admin/influenciadores'
     | '/admin/notificacoes'
     | '/admin/usuarios'
     | '/app/assinatura'
@@ -337,12 +401,17 @@ export interface FileRouteTypes {
     | '/app/rankings'
     | '/app/score'
     | '/app/treinos'
+    | '/inf/financeiro'
+    | '/inf/indicacoes'
+    | '/inf/link'
     | '/pro/alunos'
     | '/pro/financeiro'
     | '/pro/notificacoes'
     | '/pro/treinos'
+    | '/r/$code'
     | '/admin/'
     | '/app/'
+    | '/inf/'
     | '/pro/'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
@@ -358,6 +427,7 @@ export interface FileRouteTypes {
     | '/admin/configuracoes'
     | '/admin/conteudo'
     | '/admin/financeiro'
+    | '/admin/influenciadores'
     | '/admin/notificacoes'
     | '/admin/usuarios'
     | '/app/assinatura'
@@ -369,12 +439,17 @@ export interface FileRouteTypes {
     | '/app/rankings'
     | '/app/score'
     | '/app/treinos'
+    | '/inf/financeiro'
+    | '/inf/indicacoes'
+    | '/inf/link'
     | '/pro/alunos'
     | '/pro/financeiro'
     | '/pro/notificacoes'
     | '/pro/treinos'
+    | '/r/$code'
     | '/admin'
     | '/app'
+    | '/inf'
     | '/pro'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
@@ -386,6 +461,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/app'
     | '/cadastro'
+    | '/inf'
     | '/login'
     | '/onboarding'
     | '/pro'
@@ -393,6 +469,7 @@ export interface FileRouteTypes {
     | '/admin/configuracoes'
     | '/admin/conteudo'
     | '/admin/financeiro'
+    | '/admin/influenciadores'
     | '/admin/notificacoes'
     | '/admin/usuarios'
     | '/app/assinatura'
@@ -404,12 +481,17 @@ export interface FileRouteTypes {
     | '/app/rankings'
     | '/app/score'
     | '/app/treinos'
+    | '/inf/financeiro'
+    | '/inf/indicacoes'
+    | '/inf/link'
     | '/pro/alunos'
     | '/pro/financeiro'
     | '/pro/notificacoes'
     | '/pro/treinos'
+    | '/r/$code'
     | '/admin/'
     | '/app/'
+    | '/inf/'
     | '/pro/'
     | '/app/run/iniciar'
     | '/app/treinos/$id'
@@ -422,9 +504,11 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AppRoute: typeof AppRouteWithChildren
   CadastroRoute: typeof CadastroRoute
+  InfRoute: typeof InfRouteWithChildren
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRoute
   ProRoute: typeof ProRouteWithChildren
+  RCodeRoute: typeof RCodeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -448,6 +532,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/inf': {
+      id: '/inf'
+      path: '/inf'
+      fullPath: '/inf'
+      preLoaderRoute: typeof InfRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cadastro': {
@@ -485,6 +576,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProIndexRouteImport
       parentRoute: typeof ProRoute
     }
+    '/inf/': {
+      id: '/inf/'
+      path: '/'
+      fullPath: '/inf/'
+      preLoaderRoute: typeof InfIndexRouteImport
+      parentRoute: typeof InfRoute
+    }
     '/app/': {
       id: '/app/'
       path: '/'
@@ -498,6 +596,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/r/$code': {
+      id: '/r/$code'
+      path: '/r/$code'
+      fullPath: '/r/$code'
+      preLoaderRoute: typeof RCodeRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/pro/treinos': {
       id: '/pro/treinos'
@@ -526,6 +631,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/pro/alunos'
       preLoaderRoute: typeof ProAlunosRouteImport
       parentRoute: typeof ProRoute
+    }
+    '/inf/link': {
+      id: '/inf/link'
+      path: '/link'
+      fullPath: '/inf/link'
+      preLoaderRoute: typeof InfLinkRouteImport
+      parentRoute: typeof InfRoute
+    }
+    '/inf/indicacoes': {
+      id: '/inf/indicacoes'
+      path: '/indicacoes'
+      fullPath: '/inf/indicacoes'
+      preLoaderRoute: typeof InfIndicacoesRouteImport
+      parentRoute: typeof InfRoute
+    }
+    '/inf/financeiro': {
+      id: '/inf/financeiro'
+      path: '/financeiro'
+      fullPath: '/inf/financeiro'
+      preLoaderRoute: typeof InfFinanceiroRouteImport
+      parentRoute: typeof InfRoute
     }
     '/app/treinos': {
       id: '/app/treinos'
@@ -604,6 +730,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminNotificacoesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/influenciadores': {
+      id: '/admin/influenciadores'
+      path: '/influenciadores'
+      fullPath: '/admin/influenciadores'
+      preLoaderRoute: typeof AdminInfluenciadoresRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/financeiro': {
       id: '/admin/financeiro'
       path: '/financeiro'
@@ -668,6 +801,7 @@ interface AdminRouteChildren {
   AdminConfiguracoesRoute: typeof AdminConfiguracoesRoute
   AdminConteudoRoute: typeof AdminConteudoRoute
   AdminFinanceiroRoute: typeof AdminFinanceiroRoute
+  AdminInfluenciadoresRoute: typeof AdminInfluenciadoresRoute
   AdminNotificacoesRoute: typeof AdminNotificacoesRoute
   AdminUsuariosRoute: typeof AdminUsuariosRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -678,6 +812,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminConfiguracoesRoute: AdminConfiguracoesRoute,
   AdminConteudoRoute: AdminConteudoRoute,
   AdminFinanceiroRoute: AdminFinanceiroRoute,
+  AdminInfluenciadoresRoute: AdminInfluenciadoresRoute,
   AdminNotificacoesRoute: AdminNotificacoesRoute,
   AdminUsuariosRoute: AdminUsuariosRoute,
   AdminIndexRoute: AdminIndexRoute,
@@ -729,6 +864,22 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface InfRouteChildren {
+  InfFinanceiroRoute: typeof InfFinanceiroRoute
+  InfIndicacoesRoute: typeof InfIndicacoesRoute
+  InfLinkRoute: typeof InfLinkRoute
+  InfIndexRoute: typeof InfIndexRoute
+}
+
+const InfRouteChildren: InfRouteChildren = {
+  InfFinanceiroRoute: InfFinanceiroRoute,
+  InfIndicacoesRoute: InfIndicacoesRoute,
+  InfLinkRoute: InfLinkRoute,
+  InfIndexRoute: InfIndexRoute,
+}
+
+const InfRouteWithChildren = InfRoute._addFileChildren(InfRouteChildren)
+
 interface ProAlunosRouteChildren {
   ProAlunosIdRoute: typeof ProAlunosIdRoute
 }
@@ -764,9 +915,11 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AppRoute: AppRouteWithChildren,
   CadastroRoute: CadastroRoute,
+  InfRoute: InfRouteWithChildren,
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRoute,
   ProRoute: ProRouteWithChildren,
+  RCodeRoute: RCodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

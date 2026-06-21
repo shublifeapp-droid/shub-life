@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Loader2, User, Dumbbell } from "lucide-react";
 import { Logo } from "@/components/shub/Logo";
 import { routeAfterLogin } from "@/lib/shub/routeAfterLogin";
+import { readRefCode, clearRefCode } from "@/lib/shub/referral";
 
 export const Route = createFileRoute("/cadastro")({
   component: Cadastro,
@@ -41,6 +42,24 @@ function Cadastro() {
       if (error) {
         toast.error(error.message);
         return;
+      }
+
+      // Link referral if the user landed here via /r/:code
+      const ref = readRefCode();
+      if (ref && data.user) {
+        const { data: inf } = await supabase
+          .from("influencers")
+          .select("id")
+          .eq("code", ref.toUpperCase())
+          .maybeSingle();
+        if (inf) {
+          await supabase.from("influencer_referrals").insert({
+            influencer_id: (inf as { id: string }).id,
+            referred_user_id: data.user.id,
+            status: "pending",
+          });
+        }
+        clearRefCode();
       }
 
       if (data.session) {
