@@ -16,9 +16,15 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
 import { Route as AppTreinosRouteImport } from './routes/app.treinos'
+import { Route as AppScoreRouteImport } from './routes/app.score'
+import { Route as AppRankingsRouteImport } from './routes/app.rankings'
 import { Route as AppPerfilRouteImport } from './routes/app.perfil'
+import { Route as AppNotificacoesRouteImport } from './routes/app.notificacoes'
 import { Route as AppEvolucaoRouteImport } from './routes/app.evolucao'
+import { Route as AppDesafiosRouteImport } from './routes/app.desafios'
 import { Route as AppComunidadeRouteImport } from './routes/app.comunidade'
+import { Route as AppAssinaturaRouteImport } from './routes/app.assinatura'
+import { Route as AppTreinosIdRouteImport } from './routes/app.treinos.$id'
 
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
@@ -55,9 +61,24 @@ const AppTreinosRoute = AppTreinosRouteImport.update({
   path: '/treinos',
   getParentRoute: () => AppRoute,
 } as any)
+const AppScoreRoute = AppScoreRouteImport.update({
+  id: '/score',
+  path: '/score',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRankingsRoute = AppRankingsRouteImport.update({
+  id: '/rankings',
+  path: '/rankings',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppPerfilRoute = AppPerfilRouteImport.update({
   id: '/perfil',
   path: '/perfil',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificacoesRoute = AppNotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
   getParentRoute: () => AppRoute,
 } as any)
 const AppEvolucaoRoute = AppEvolucaoRouteImport.update({
@@ -65,10 +86,25 @@ const AppEvolucaoRoute = AppEvolucaoRouteImport.update({
   path: '/evolucao',
   getParentRoute: () => AppRoute,
 } as any)
+const AppDesafiosRoute = AppDesafiosRouteImport.update({
+  id: '/desafios',
+  path: '/desafios',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppComunidadeRoute = AppComunidadeRouteImport.update({
   id: '/comunidade',
   path: '/comunidade',
   getParentRoute: () => AppRoute,
+} as any)
+const AppAssinaturaRoute = AppAssinaturaRouteImport.update({
+  id: '/assinatura',
+  path: '/assinatura',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTreinosIdRoute = AppTreinosIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AppTreinosRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -77,22 +113,34 @@ export interface FileRoutesByFullPath {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
+  '/app/desafios': typeof AppDesafiosRoute
   '/app/evolucao': typeof AppEvolucaoRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
   '/app/perfil': typeof AppPerfilRoute
-  '/app/treinos': typeof AppTreinosRoute
+  '/app/rankings': typeof AppRankingsRoute
+  '/app/score': typeof AppScoreRoute
+  '/app/treinos': typeof AppTreinosRouteWithChildren
   '/app/': typeof AppIndexRoute
+  '/app/treinos/$id': typeof AppTreinosIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
+  '/app/desafios': typeof AppDesafiosRoute
   '/app/evolucao': typeof AppEvolucaoRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
   '/app/perfil': typeof AppPerfilRoute
-  '/app/treinos': typeof AppTreinosRoute
+  '/app/rankings': typeof AppRankingsRoute
+  '/app/score': typeof AppScoreRoute
+  '/app/treinos': typeof AppTreinosRouteWithChildren
   '/app': typeof AppIndexRoute
+  '/app/treinos/$id': typeof AppTreinosIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -101,11 +149,17 @@ export interface FileRoutesById {
   '/cadastro': typeof CadastroRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
+  '/app/assinatura': typeof AppAssinaturaRoute
   '/app/comunidade': typeof AppComunidadeRoute
+  '/app/desafios': typeof AppDesafiosRoute
   '/app/evolucao': typeof AppEvolucaoRoute
+  '/app/notificacoes': typeof AppNotificacoesRoute
   '/app/perfil': typeof AppPerfilRoute
-  '/app/treinos': typeof AppTreinosRoute
+  '/app/rankings': typeof AppRankingsRoute
+  '/app/score': typeof AppScoreRoute
+  '/app/treinos': typeof AppTreinosRouteWithChildren
   '/app/': typeof AppIndexRoute
+  '/app/treinos/$id': typeof AppTreinosIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -115,22 +169,34 @@ export interface FileRouteTypes {
     | '/cadastro'
     | '/login'
     | '/onboarding'
+    | '/app/assinatura'
     | '/app/comunidade'
+    | '/app/desafios'
     | '/app/evolucao'
+    | '/app/notificacoes'
     | '/app/perfil'
+    | '/app/rankings'
+    | '/app/score'
     | '/app/treinos'
     | '/app/'
+    | '/app/treinos/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/cadastro'
     | '/login'
     | '/onboarding'
+    | '/app/assinatura'
     | '/app/comunidade'
+    | '/app/desafios'
     | '/app/evolucao'
+    | '/app/notificacoes'
     | '/app/perfil'
+    | '/app/rankings'
+    | '/app/score'
     | '/app/treinos'
     | '/app'
+    | '/app/treinos/$id'
   id:
     | '__root__'
     | '/'
@@ -138,11 +204,17 @@ export interface FileRouteTypes {
     | '/cadastro'
     | '/login'
     | '/onboarding'
+    | '/app/assinatura'
     | '/app/comunidade'
+    | '/app/desafios'
     | '/app/evolucao'
+    | '/app/notificacoes'
     | '/app/perfil'
+    | '/app/rankings'
+    | '/app/score'
     | '/app/treinos'
     | '/app/'
+    | '/app/treinos/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -204,11 +276,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppTreinosRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/score': {
+      id: '/app/score'
+      path: '/score'
+      fullPath: '/app/score'
+      preLoaderRoute: typeof AppScoreRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/rankings': {
+      id: '/app/rankings'
+      path: '/rankings'
+      fullPath: '/app/rankings'
+      preLoaderRoute: typeof AppRankingsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/perfil': {
       id: '/app/perfil'
       path: '/perfil'
       fullPath: '/app/perfil'
       preLoaderRoute: typeof AppPerfilRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/notificacoes': {
+      id: '/app/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/app/notificacoes'
+      preLoaderRoute: typeof AppNotificacoesRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/evolucao': {
@@ -218,6 +311,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEvolucaoRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/desafios': {
+      id: '/app/desafios'
+      path: '/desafios'
+      fullPath: '/app/desafios'
+      preLoaderRoute: typeof AppDesafiosRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/comunidade': {
       id: '/app/comunidade'
       path: '/comunidade'
@@ -225,22 +325,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppComunidadeRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/assinatura': {
+      id: '/app/assinatura'
+      path: '/assinatura'
+      fullPath: '/app/assinatura'
+      preLoaderRoute: typeof AppAssinaturaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/treinos/$id': {
+      id: '/app/treinos/$id'
+      path: '/$id'
+      fullPath: '/app/treinos/$id'
+      preLoaderRoute: typeof AppTreinosIdRouteImport
+      parentRoute: typeof AppTreinosRoute
+    }
   }
 }
 
+interface AppTreinosRouteChildren {
+  AppTreinosIdRoute: typeof AppTreinosIdRoute
+}
+
+const AppTreinosRouteChildren: AppTreinosRouteChildren = {
+  AppTreinosIdRoute: AppTreinosIdRoute,
+}
+
+const AppTreinosRouteWithChildren = AppTreinosRoute._addFileChildren(
+  AppTreinosRouteChildren,
+)
+
 interface AppRouteChildren {
+  AppAssinaturaRoute: typeof AppAssinaturaRoute
   AppComunidadeRoute: typeof AppComunidadeRoute
+  AppDesafiosRoute: typeof AppDesafiosRoute
   AppEvolucaoRoute: typeof AppEvolucaoRoute
+  AppNotificacoesRoute: typeof AppNotificacoesRoute
   AppPerfilRoute: typeof AppPerfilRoute
-  AppTreinosRoute: typeof AppTreinosRoute
+  AppRankingsRoute: typeof AppRankingsRoute
+  AppScoreRoute: typeof AppScoreRoute
+  AppTreinosRoute: typeof AppTreinosRouteWithChildren
   AppIndexRoute: typeof AppIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAssinaturaRoute: AppAssinaturaRoute,
   AppComunidadeRoute: AppComunidadeRoute,
+  AppDesafiosRoute: AppDesafiosRoute,
   AppEvolucaoRoute: AppEvolucaoRoute,
+  AppNotificacoesRoute: AppNotificacoesRoute,
   AppPerfilRoute: AppPerfilRoute,
-  AppTreinosRoute: AppTreinosRoute,
+  AppRankingsRoute: AppRankingsRoute,
+  AppScoreRoute: AppScoreRoute,
+  AppTreinosRoute: AppTreinosRouteWithChildren,
   AppIndexRoute: AppIndexRoute,
 }
 
