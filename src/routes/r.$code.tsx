@@ -125,9 +125,9 @@ function ReferralLanding() {
       <section className="relative z-10 mx-auto max-w-3xl px-5 pb-20">
         <div className="rounded-[32px] border border-neon/40 bg-surface p-8 text-center glow-neon-soft">
           <p className="text-[10px] uppercase tracking-[0.2em] text-neon">Plano Premium</p>
-          <h3 className="mt-2 font-display text-3xl font-bold">{premiumPlan.name}</h3>
+          <h3 className="mt-2 font-display text-3xl font-bold">{premiumPlan.label}</h3>
           <p className="mt-2 font-display text-4xl font-bold text-neon">
-            R$ {premiumPlan.priceBrl.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+            R$ {premiumPlan.monthlyPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
             <span className="text-sm text-muted-foreground">/mês</span>
           </p>
           <ul className="mx-auto mt-5 max-w-sm space-y-2 text-left text-sm">
