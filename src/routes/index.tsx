@@ -192,7 +192,7 @@ function Landing() {
                   )}
                 </div>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  {isStarter ? "Comece sem custo" : `Até ${plan.studentLimit} alunos`}
+                  {isStarter ? "Até 3 alunos grátis" : isPro ? "Até 10 alunos" : "Alunos ilimitados"}
                 </p>
                 <ul className="mt-5 space-y-2.5">
                   {plan.features.map((f) => (
