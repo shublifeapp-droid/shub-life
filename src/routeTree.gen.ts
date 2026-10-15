@@ -9,80 +9,55 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ProRouteImport } from './routes/pro'
-import { Route as OnboardingRouteImport } from './routes/onboarding'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as InfRouteImport } from './routes/inf'
-import { Route as CadastroRouteImport } from './routes/cadastro'
-import { Route as AppRouteImport } from './routes/app'
-import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProIndexRouteImport } from './routes/pro.index'
-import { Route as InfIndexRouteImport } from './routes/inf.index'
-import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as CadastroRouteImport } from './routes/cadastro'
+import { Route as InfRouteImport } from './routes/inf'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as ProRouteImport } from './routes/pro'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as RCodeRouteImport } from './routes/r.$code'
-import { Route as ProTreinosRouteImport } from './routes/pro.treinos'
-import { Route as ProNotificacoesRouteImport } from './routes/pro.notificacoes'
-import { Route as ProFinanceiroRouteImport } from './routes/pro.financeiro'
-import { Route as ProEnviarNotificacaoRouteImport } from './routes/pro.enviar-notificacao'
-import { Route as ProContratosRouteImport } from './routes/pro.contratos'
-import { Route as ProCobrancasRouteImport } from './routes/pro.cobrancas'
-import { Route as ProAlunosRouteImport } from './routes/pro.alunos'
-import { Route as InfLinkRouteImport } from './routes/inf.link'
-import { Route as InfIndicacoesRouteImport } from './routes/inf.indicacoes'
-import { Route as InfFinanceiroRouteImport } from './routes/inf.financeiro'
-import { Route as AppTreinosRouteImport } from './routes/app.treinos'
-import { Route as AppScoreRouteImport } from './routes/app.score'
-import { Route as AppRankingsRouteImport } from './routes/app.rankings'
-import { Route as AppPerfilRouteImport } from './routes/app.perfil'
-import { Route as AppNotificacoesRouteImport } from './routes/app.notificacoes'
-import { Route as AppEvolucaoRouteImport } from './routes/app.evolucao'
-import { Route as AppDesafiosRouteImport } from './routes/app.desafios'
-import { Route as AppComunidadeRouteImport } from './routes/app.comunidade'
-import { Route as AppAssinaturaRouteImport } from './routes/app.assinatura'
-import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
-import { Route as AdminNotificacoesRouteImport } from './routes/admin.notificacoes'
-import { Route as AdminInfluenciadoresRouteImport } from './routes/admin.influenciadores'
-import { Route as AdminFinanceiroRouteImport } from './routes/admin.financeiro'
-import { Route as AdminConteudoRouteImport } from './routes/admin.conteudo'
-import { Route as AdminConfiguracoesRouteImport } from './routes/admin.configuracoes'
 import { Route as AdminAuditoriaRouteImport } from './routes/admin.auditoria'
-import { Route as AppRunIndexRouteImport } from './routes/app.run.index'
-import { Route as ProTreinosNovoRouteImport } from './routes/pro.treinos.novo'
-import { Route as ProAlunosIdRouteImport } from './routes/pro.alunos.$id'
-import { Route as AppTreinosIdRouteImport } from './routes/app.treinos.$id'
-import { Route as AppRunIniciarRouteImport } from './routes/app.run.iniciar'
+import { Route as AdminConfiguracoesRouteImport } from './routes/admin.configuracoes'
+import { Route as AdminConteudoRouteImport } from './routes/admin.conteudo'
+import { Route as AdminFinanceiroRouteImport } from './routes/admin.financeiro'
+import { Route as AdminInfluenciadoresRouteImport } from './routes/admin.influenciadores'
+import { Route as AdminNotificacoesRouteImport } from './routes/admin.notificacoes'
+import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppAssinaturaRouteImport } from './routes/app.assinatura'
+import { Route as AppComunidadeRouteImport } from './routes/app.comunidade'
+import { Route as AppDesafiosRouteImport } from './routes/app.desafios'
+import { Route as AppEvolucaoRouteImport } from './routes/app.evolucao'
+import { Route as AppNotificacoesRouteImport } from './routes/app.notificacoes'
+import { Route as AppPerfilRouteImport } from './routes/app.perfil'
+import { Route as AppRankingsRouteImport } from './routes/app.rankings'
+import { Route as AppScoreRouteImport } from './routes/app.score'
+import { Route as AppTreinosRouteImport } from './routes/app.treinos'
+import { Route as InfIndexRouteImport } from './routes/inf.index'
+import { Route as InfFinanceiroRouteImport } from './routes/inf.financeiro'
+import { Route as InfIndicacoesRouteImport } from './routes/inf.indicacoes'
+import { Route as InfLinkRouteImport } from './routes/inf.link'
+import { Route as ProIndexRouteImport } from './routes/pro.index'
+import { Route as ProAlunosRouteImport } from './routes/pro.alunos'
+import { Route as ProCobrancasRouteImport } from './routes/pro.cobrancas'
+import { Route as ProContratosRouteImport } from './routes/pro.contratos'
+import { Route as ProEnviarNotificacaoRouteImport } from './routes/pro.enviar-notificacao'
+import { Route as ProFinanceiroRouteImport } from './routes/pro.financeiro'
+import { Route as ProNotificacoesRouteImport } from './routes/pro.notificacoes'
+import { Route as ProTreinosRouteImport } from './routes/pro.treinos'
+import { Route as RCodeRouteImport } from './routes/r.$code'
 import { Route as AdminUsuariosNovoRouteImport } from './routes/admin.usuarios.novo'
+import { Route as AppRunIndexRouteImport } from './routes/app.run.index'
+import { Route as AppRunIniciarRouteImport } from './routes/app.run.iniciar'
+import { Route as AppTreinosIdRouteImport } from './routes/app.treinos.$id'
+import { Route as ProAlunosIdRouteImport } from './routes/pro.alunos.$id'
+import { Route as ProTreinosNovoRouteImport } from './routes/pro.treinos.novo'
 
-const ProRoute = ProRouteImport.update({
-  id: '/pro',
-  path: '/pro',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingRoute = OnboardingRouteImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InfRoute = InfRouteImport.update({
-  id: '/inf',
-  path: '/inf',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CadastroRoute = CadastroRouteImport.update({
-  id: '/cadastro',
-  path: '/cadastro',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppRoute = AppRouteImport.update({
-  id: '/app',
-  path: '/app',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -90,159 +65,39 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProIndexRoute = ProIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ProRoute,
+const CadastroRoute = CadastroRouteImport.update({
+  id: '/cadastro',
+  path: '/cadastro',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const InfIndexRoute = InfIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => InfRoute,
+const InfRoute = InfRouteImport.update({
+  id: '/inf',
+  path: '/inf',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AppRoute,
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProRoute = ProRouteImport.update({
+  id: '/pro',
+  path: '/pro',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AdminRoute,
-} as any)
-const RCodeRoute = RCodeRouteImport.update({
-  id: '/r/$code',
-  path: '/r/$code',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProTreinosRoute = ProTreinosRouteImport.update({
-  id: '/treinos',
-  path: '/treinos',
-  getParentRoute: () => ProRoute,
-} as any)
-const ProNotificacoesRoute = ProNotificacoesRouteImport.update({
-  id: '/notificacoes',
-  path: '/notificacoes',
-  getParentRoute: () => ProRoute,
-} as any)
-const ProFinanceiroRoute = ProFinanceiroRouteImport.update({
-  id: '/financeiro',
-  path: '/financeiro',
-  getParentRoute: () => ProRoute,
-} as any)
-const ProEnviarNotificacaoRoute = ProEnviarNotificacaoRouteImport.update({
-  id: '/enviar-notificacao',
-  path: '/enviar-notificacao',
-  getParentRoute: () => ProRoute,
-} as any)
-const ProContratosRoute = ProContratosRouteImport.update({
-  id: '/contratos',
-  path: '/contratos',
-  getParentRoute: () => ProRoute,
-} as any)
-const ProCobrancasRoute = ProCobrancasRouteImport.update({
-  id: '/cobrancas',
-  path: '/cobrancas',
-  getParentRoute: () => ProRoute,
-} as any)
-const ProAlunosRoute = ProAlunosRouteImport.update({
-  id: '/alunos',
-  path: '/alunos',
-  getParentRoute: () => ProRoute,
-} as any)
-const InfLinkRoute = InfLinkRouteImport.update({
-  id: '/link',
-  path: '/link',
-  getParentRoute: () => InfRoute,
-} as any)
-const InfIndicacoesRoute = InfIndicacoesRouteImport.update({
-  id: '/indicacoes',
-  path: '/indicacoes',
-  getParentRoute: () => InfRoute,
-} as any)
-const InfFinanceiroRoute = InfFinanceiroRouteImport.update({
-  id: '/financeiro',
-  path: '/financeiro',
-  getParentRoute: () => InfRoute,
-} as any)
-const AppTreinosRoute = AppTreinosRouteImport.update({
-  id: '/treinos',
-  path: '/treinos',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppScoreRoute = AppScoreRouteImport.update({
-  id: '/score',
-  path: '/score',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppRankingsRoute = AppRankingsRouteImport.update({
-  id: '/rankings',
-  path: '/rankings',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppPerfilRoute = AppPerfilRouteImport.update({
-  id: '/perfil',
-  path: '/perfil',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppNotificacoesRoute = AppNotificacoesRouteImport.update({
-  id: '/notificacoes',
-  path: '/notificacoes',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppEvolucaoRoute = AppEvolucaoRouteImport.update({
-  id: '/evolucao',
-  path: '/evolucao',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppDesafiosRoute = AppDesafiosRouteImport.update({
-  id: '/desafios',
-  path: '/desafios',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppComunidadeRoute = AppComunidadeRouteImport.update({
-  id: '/comunidade',
-  path: '/comunidade',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAssinaturaRoute = AppAssinaturaRouteImport.update({
-  id: '/assinatura',
-  path: '/assinatura',
-  getParentRoute: () => AppRoute,
-} as any)
-const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
-  id: '/usuarios',
-  path: '/usuarios',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminNotificacoesRoute = AdminNotificacoesRouteImport.update({
-  id: '/notificacoes',
-  path: '/notificacoes',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminInfluenciadoresRoute = AdminInfluenciadoresRouteImport.update({
-  id: '/influenciadores',
-  path: '/influenciadores',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminFinanceiroRoute = AdminFinanceiroRouteImport.update({
-  id: '/financeiro',
-  path: '/financeiro',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminConteudoRoute = AdminConteudoRouteImport.update({
-  id: '/conteudo',
-  path: '/conteudo',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminConfiguracoesRoute = AdminConfiguracoesRouteImport.update({
-  id: '/configuracoes',
-  path: '/configuracoes',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminAuditoriaRoute = AdminAuditoriaRouteImport.update({
@@ -250,35 +105,180 @@ const AdminAuditoriaRoute = AdminAuditoriaRouteImport.update({
   path: '/auditoria',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminConfiguracoesRoute = AdminConfiguracoesRouteImport.update({
+  id: '/configuracoes',
+  path: '/configuracoes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminConteudoRoute = AdminConteudoRouteImport.update({
+  id: '/conteudo',
+  path: '/conteudo',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFinanceiroRoute = AdminFinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminInfluenciadoresRoute = AdminInfluenciadoresRouteImport.update({
+  id: '/influenciadores',
+  path: '/influenciadores',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNotificacoesRoute = AdminNotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
+  id: '/usuarios',
+  path: '/usuarios',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAssinaturaRoute = AppAssinaturaRouteImport.update({
+  id: '/assinatura',
+  path: '/assinatura',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppComunidadeRoute = AppComunidadeRouteImport.update({
+  id: '/comunidade',
+  path: '/comunidade',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDesafiosRoute = AppDesafiosRouteImport.update({
+  id: '/desafios',
+  path: '/desafios',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppEvolucaoRoute = AppEvolucaoRouteImport.update({
+  id: '/evolucao',
+  path: '/evolucao',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificacoesRoute = AppNotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPerfilRoute = AppPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppRankingsRoute = AppRankingsRouteImport.update({
+  id: '/rankings',
+  path: '/rankings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScoreRoute = AppScoreRouteImport.update({
+  id: '/score',
+  path: '/score',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppTreinosRoute = AppTreinosRouteImport.update({
+  id: '/treinos',
+  path: '/treinos',
+  getParentRoute: () => AppRoute,
+} as any)
+const InfIndexRoute = InfIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => InfRoute,
+} as any)
+const InfFinanceiroRoute = InfFinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => InfRoute,
+} as any)
+const InfIndicacoesRoute = InfIndicacoesRouteImport.update({
+  id: '/indicacoes',
+  path: '/indicacoes',
+  getParentRoute: () => InfRoute,
+} as any)
+const InfLinkRoute = InfLinkRouteImport.update({
+  id: '/link',
+  path: '/link',
+  getParentRoute: () => InfRoute,
+} as any)
+const ProIndexRoute = ProIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProAlunosRoute = ProAlunosRouteImport.update({
+  id: '/alunos',
+  path: '/alunos',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProCobrancasRoute = ProCobrancasRouteImport.update({
+  id: '/cobrancas',
+  path: '/cobrancas',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProContratosRoute = ProContratosRouteImport.update({
+  id: '/contratos',
+  path: '/contratos',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProEnviarNotificacaoRoute = ProEnviarNotificacaoRouteImport.update({
+  id: '/enviar-notificacao',
+  path: '/enviar-notificacao',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProFinanceiroRoute = ProFinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProNotificacoesRoute = ProNotificacoesRouteImport.update({
+  id: '/notificacoes',
+  path: '/notificacoes',
+  getParentRoute: () => ProRoute,
+} as any)
+const ProTreinosRoute = ProTreinosRouteImport.update({
+  id: '/treinos',
+  path: '/treinos',
+  getParentRoute: () => ProRoute,
+} as any)
+const RCodeRoute = RCodeRouteImport.update({
+  id: '/r/$code',
+  path: '/r/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsuariosNovoRoute = AdminUsuariosNovoRouteImport.update({
+  id: '/novo',
+  path: '/novo',
+  getParentRoute: () => AdminUsuariosRoute,
+} as any)
 const AppRunIndexRoute = AppRunIndexRouteImport.update({
   id: '/run/',
   path: '/run/',
   getParentRoute: () => AppRoute,
-} as any)
-const ProTreinosNovoRoute = ProTreinosNovoRouteImport.update({
-  id: '/novo',
-  path: '/novo',
-  getParentRoute: () => ProTreinosRoute,
-} as any)
-const ProAlunosIdRoute = ProAlunosIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => ProAlunosRoute,
-} as any)
-const AppTreinosIdRoute = AppTreinosIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => AppTreinosRoute,
 } as any)
 const AppRunIniciarRoute = AppRunIniciarRouteImport.update({
   id: '/run/iniciar',
   path: '/run/iniciar',
   getParentRoute: () => AppRoute,
 } as any)
-const AdminUsuariosNovoRoute = AdminUsuariosNovoRouteImport.update({
+const AppTreinosIdRoute = AppTreinosIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AppTreinosRoute,
+} as any)
+const ProAlunosIdRoute = ProAlunosIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ProAlunosRoute,
+} as any)
+const ProTreinosNovoRoute = ProTreinosNovoRouteImport.update({
   id: '/novo',
   path: '/novo',
-  getParentRoute: () => AdminUsuariosRoute,
+  getParentRoute: () => ProTreinosRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -573,46 +573,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/pro': {
-      id: '/pro'
-      path: '/pro'
-      fullPath: '/pro'
-      preLoaderRoute: typeof ProRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding': {
-      id: '/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof OnboardingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/inf': {
-      id: '/inf'
-      path: '/inf'
-      fullPath: '/inf'
-      preLoaderRoute: typeof InfRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cadastro': {
-      id: '/cadastro'
-      path: '/cadastro'
-      fullPath: '/cadastro'
-      preLoaderRoute: typeof CadastroRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/app': {
-      id: '/app'
-      path: '/app'
-      fullPath: '/app'
-      preLoaderRoute: typeof AppRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -622,221 +587,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pro/': {
-      id: '/pro/'
-      path: '/'
-      fullPath: '/pro/'
-      preLoaderRoute: typeof ProIndexRouteImport
-      parentRoute: typeof ProRoute
+    '/cadastro': {
+      id: '/cadastro'
+      path: '/cadastro'
+      fullPath: '/cadastro'
+      preLoaderRoute: typeof CadastroRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/inf/': {
-      id: '/inf/'
-      path: '/'
-      fullPath: '/inf/'
-      preLoaderRoute: typeof InfIndexRouteImport
-      parentRoute: typeof InfRoute
+    '/inf': {
+      id: '/inf'
+      path: '/inf'
+      fullPath: '/inf'
+      preLoaderRoute: typeof InfRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/app/': {
-      id: '/app/'
-      path: '/'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AppIndexRouteImport
-      parentRoute: typeof AppRoute
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pro': {
+      id: '/pro'
+      path: '/pro'
+      fullPath: '/pro'
+      preLoaderRoute: typeof ProRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/admin/': {
       id: '/admin/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/r/$code': {
-      id: '/r/$code'
-      path: '/r/$code'
-      fullPath: '/r/$code'
-      preLoaderRoute: typeof RCodeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pro/treinos': {
-      id: '/pro/treinos'
-      path: '/treinos'
-      fullPath: '/pro/treinos'
-      preLoaderRoute: typeof ProTreinosRouteImport
-      parentRoute: typeof ProRoute
-    }
-    '/pro/notificacoes': {
-      id: '/pro/notificacoes'
-      path: '/notificacoes'
-      fullPath: '/pro/notificacoes'
-      preLoaderRoute: typeof ProNotificacoesRouteImport
-      parentRoute: typeof ProRoute
-    }
-    '/pro/financeiro': {
-      id: '/pro/financeiro'
-      path: '/financeiro'
-      fullPath: '/pro/financeiro'
-      preLoaderRoute: typeof ProFinanceiroRouteImport
-      parentRoute: typeof ProRoute
-    }
-    '/pro/enviar-notificacao': {
-      id: '/pro/enviar-notificacao'
-      path: '/enviar-notificacao'
-      fullPath: '/pro/enviar-notificacao'
-      preLoaderRoute: typeof ProEnviarNotificacaoRouteImport
-      parentRoute: typeof ProRoute
-    }
-    '/pro/contratos': {
-      id: '/pro/contratos'
-      path: '/contratos'
-      fullPath: '/pro/contratos'
-      preLoaderRoute: typeof ProContratosRouteImport
-      parentRoute: typeof ProRoute
-    }
-    '/pro/cobrancas': {
-      id: '/pro/cobrancas'
-      path: '/cobrancas'
-      fullPath: '/pro/cobrancas'
-      preLoaderRoute: typeof ProCobrancasRouteImport
-      parentRoute: typeof ProRoute
-    }
-    '/pro/alunos': {
-      id: '/pro/alunos'
-      path: '/alunos'
-      fullPath: '/pro/alunos'
-      preLoaderRoute: typeof ProAlunosRouteImport
-      parentRoute: typeof ProRoute
-    }
-    '/inf/link': {
-      id: '/inf/link'
-      path: '/link'
-      fullPath: '/inf/link'
-      preLoaderRoute: typeof InfLinkRouteImport
-      parentRoute: typeof InfRoute
-    }
-    '/inf/indicacoes': {
-      id: '/inf/indicacoes'
-      path: '/indicacoes'
-      fullPath: '/inf/indicacoes'
-      preLoaderRoute: typeof InfIndicacoesRouteImport
-      parentRoute: typeof InfRoute
-    }
-    '/inf/financeiro': {
-      id: '/inf/financeiro'
-      path: '/financeiro'
-      fullPath: '/inf/financeiro'
-      preLoaderRoute: typeof InfFinanceiroRouteImport
-      parentRoute: typeof InfRoute
-    }
-    '/app/treinos': {
-      id: '/app/treinos'
-      path: '/treinos'
-      fullPath: '/app/treinos'
-      preLoaderRoute: typeof AppTreinosRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/score': {
-      id: '/app/score'
-      path: '/score'
-      fullPath: '/app/score'
-      preLoaderRoute: typeof AppScoreRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/rankings': {
-      id: '/app/rankings'
-      path: '/rankings'
-      fullPath: '/app/rankings'
-      preLoaderRoute: typeof AppRankingsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/perfil': {
-      id: '/app/perfil'
-      path: '/perfil'
-      fullPath: '/app/perfil'
-      preLoaderRoute: typeof AppPerfilRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/notificacoes': {
-      id: '/app/notificacoes'
-      path: '/notificacoes'
-      fullPath: '/app/notificacoes'
-      preLoaderRoute: typeof AppNotificacoesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/evolucao': {
-      id: '/app/evolucao'
-      path: '/evolucao'
-      fullPath: '/app/evolucao'
-      preLoaderRoute: typeof AppEvolucaoRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/desafios': {
-      id: '/app/desafios'
-      path: '/desafios'
-      fullPath: '/app/desafios'
-      preLoaderRoute: typeof AppDesafiosRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/comunidade': {
-      id: '/app/comunidade'
-      path: '/comunidade'
-      fullPath: '/app/comunidade'
-      preLoaderRoute: typeof AppComunidadeRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/assinatura': {
-      id: '/app/assinatura'
-      path: '/assinatura'
-      fullPath: '/app/assinatura'
-      preLoaderRoute: typeof AppAssinaturaRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/admin/usuarios': {
-      id: '/admin/usuarios'
-      path: '/usuarios'
-      fullPath: '/admin/usuarios'
-      preLoaderRoute: typeof AdminUsuariosRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/notificacoes': {
-      id: '/admin/notificacoes'
-      path: '/notificacoes'
-      fullPath: '/admin/notificacoes'
-      preLoaderRoute: typeof AdminNotificacoesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/influenciadores': {
-      id: '/admin/influenciadores'
-      path: '/influenciadores'
-      fullPath: '/admin/influenciadores'
-      preLoaderRoute: typeof AdminInfluenciadoresRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/financeiro': {
-      id: '/admin/financeiro'
-      path: '/financeiro'
-      fullPath: '/admin/financeiro'
-      preLoaderRoute: typeof AdminFinanceiroRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/conteudo': {
-      id: '/admin/conteudo'
-      path: '/conteudo'
-      fullPath: '/admin/conteudo'
-      preLoaderRoute: typeof AdminConteudoRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/configuracoes': {
-      id: '/admin/configuracoes'
-      path: '/configuracoes'
-      fullPath: '/admin/configuracoes'
-      preLoaderRoute: typeof AdminConfiguracoesRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/auditoria': {
@@ -846,33 +643,222 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuditoriaRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/configuracoes': {
+      id: '/admin/configuracoes'
+      path: '/configuracoes'
+      fullPath: '/admin/configuracoes'
+      preLoaderRoute: typeof AdminConfiguracoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/conteudo': {
+      id: '/admin/conteudo'
+      path: '/conteudo'
+      fullPath: '/admin/conteudo'
+      preLoaderRoute: typeof AdminConteudoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/financeiro': {
+      id: '/admin/financeiro'
+      path: '/financeiro'
+      fullPath: '/admin/financeiro'
+      preLoaderRoute: typeof AdminFinanceiroRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/influenciadores': {
+      id: '/admin/influenciadores'
+      path: '/influenciadores'
+      fullPath: '/admin/influenciadores'
+      preLoaderRoute: typeof AdminInfluenciadoresRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/notificacoes': {
+      id: '/admin/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/admin/notificacoes'
+      preLoaderRoute: typeof AdminNotificacoesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/usuarios': {
+      id: '/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AdminUsuariosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/assinatura': {
+      id: '/app/assinatura'
+      path: '/assinatura'
+      fullPath: '/app/assinatura'
+      preLoaderRoute: typeof AppAssinaturaRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/comunidade': {
+      id: '/app/comunidade'
+      path: '/comunidade'
+      fullPath: '/app/comunidade'
+      preLoaderRoute: typeof AppComunidadeRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/desafios': {
+      id: '/app/desafios'
+      path: '/desafios'
+      fullPath: '/app/desafios'
+      preLoaderRoute: typeof AppDesafiosRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/evolucao': {
+      id: '/app/evolucao'
+      path: '/evolucao'
+      fullPath: '/app/evolucao'
+      preLoaderRoute: typeof AppEvolucaoRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/notificacoes': {
+      id: '/app/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/app/notificacoes'
+      preLoaderRoute: typeof AppNotificacoesRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/perfil': {
+      id: '/app/perfil'
+      path: '/perfil'
+      fullPath: '/app/perfil'
+      preLoaderRoute: typeof AppPerfilRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/rankings': {
+      id: '/app/rankings'
+      path: '/rankings'
+      fullPath: '/app/rankings'
+      preLoaderRoute: typeof AppRankingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/score': {
+      id: '/app/score'
+      path: '/score'
+      fullPath: '/app/score'
+      preLoaderRoute: typeof AppScoreRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/treinos': {
+      id: '/app/treinos'
+      path: '/treinos'
+      fullPath: '/app/treinos'
+      preLoaderRoute: typeof AppTreinosRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/inf/': {
+      id: '/inf/'
+      path: '/'
+      fullPath: '/inf/'
+      preLoaderRoute: typeof InfIndexRouteImport
+      parentRoute: typeof InfRoute
+    }
+    '/inf/financeiro': {
+      id: '/inf/financeiro'
+      path: '/financeiro'
+      fullPath: '/inf/financeiro'
+      preLoaderRoute: typeof InfFinanceiroRouteImport
+      parentRoute: typeof InfRoute
+    }
+    '/inf/indicacoes': {
+      id: '/inf/indicacoes'
+      path: '/indicacoes'
+      fullPath: '/inf/indicacoes'
+      preLoaderRoute: typeof InfIndicacoesRouteImport
+      parentRoute: typeof InfRoute
+    }
+    '/inf/link': {
+      id: '/inf/link'
+      path: '/link'
+      fullPath: '/inf/link'
+      preLoaderRoute: typeof InfLinkRouteImport
+      parentRoute: typeof InfRoute
+    }
+    '/pro/': {
+      id: '/pro/'
+      path: '/'
+      fullPath: '/pro/'
+      preLoaderRoute: typeof ProIndexRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/alunos': {
+      id: '/pro/alunos'
+      path: '/alunos'
+      fullPath: '/pro/alunos'
+      preLoaderRoute: typeof ProAlunosRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/cobrancas': {
+      id: '/pro/cobrancas'
+      path: '/cobrancas'
+      fullPath: '/pro/cobrancas'
+      preLoaderRoute: typeof ProCobrancasRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/contratos': {
+      id: '/pro/contratos'
+      path: '/contratos'
+      fullPath: '/pro/contratos'
+      preLoaderRoute: typeof ProContratosRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/enviar-notificacao': {
+      id: '/pro/enviar-notificacao'
+      path: '/enviar-notificacao'
+      fullPath: '/pro/enviar-notificacao'
+      preLoaderRoute: typeof ProEnviarNotificacaoRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/financeiro': {
+      id: '/pro/financeiro'
+      path: '/financeiro'
+      fullPath: '/pro/financeiro'
+      preLoaderRoute: typeof ProFinanceiroRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/notificacoes': {
+      id: '/pro/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/pro/notificacoes'
+      preLoaderRoute: typeof ProNotificacoesRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/pro/treinos': {
+      id: '/pro/treinos'
+      path: '/treinos'
+      fullPath: '/pro/treinos'
+      preLoaderRoute: typeof ProTreinosRouteImport
+      parentRoute: typeof ProRoute
+    }
+    '/r/$code': {
+      id: '/r/$code'
+      path: '/r/$code'
+      fullPath: '/r/$code'
+      preLoaderRoute: typeof RCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/usuarios/novo': {
+      id: '/admin/usuarios/novo'
+      path: '/novo'
+      fullPath: '/admin/usuarios/novo'
+      preLoaderRoute: typeof AdminUsuariosNovoRouteImport
+      parentRoute: typeof AdminUsuariosRoute
+    }
     '/app/run/': {
       id: '/app/run/'
       path: '/run'
       fullPath: '/app/run/'
       preLoaderRoute: typeof AppRunIndexRouteImport
       parentRoute: typeof AppRoute
-    }
-    '/pro/treinos/novo': {
-      id: '/pro/treinos/novo'
-      path: '/novo'
-      fullPath: '/pro/treinos/novo'
-      preLoaderRoute: typeof ProTreinosNovoRouteImport
-      parentRoute: typeof ProTreinosRoute
-    }
-    '/pro/alunos/$id': {
-      id: '/pro/alunos/$id'
-      path: '/$id'
-      fullPath: '/pro/alunos/$id'
-      preLoaderRoute: typeof ProAlunosIdRouteImport
-      parentRoute: typeof ProAlunosRoute
-    }
-    '/app/treinos/$id': {
-      id: '/app/treinos/$id'
-      path: '/$id'
-      fullPath: '/app/treinos/$id'
-      preLoaderRoute: typeof AppTreinosIdRouteImport
-      parentRoute: typeof AppTreinosRoute
     }
     '/app/run/iniciar': {
       id: '/app/run/iniciar'
@@ -881,12 +867,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRunIniciarRouteImport
       parentRoute: typeof AppRoute
     }
-    '/admin/usuarios/novo': {
-      id: '/admin/usuarios/novo'
+    '/app/treinos/$id': {
+      id: '/app/treinos/$id'
+      path: '/$id'
+      fullPath: '/app/treinos/$id'
+      preLoaderRoute: typeof AppTreinosIdRouteImport
+      parentRoute: typeof AppTreinosRoute
+    }
+    '/pro/alunos/$id': {
+      id: '/pro/alunos/$id'
+      path: '/$id'
+      fullPath: '/pro/alunos/$id'
+      preLoaderRoute: typeof ProAlunosIdRouteImport
+      parentRoute: typeof ProAlunosRoute
+    }
+    '/pro/treinos/novo': {
+      id: '/pro/treinos/novo'
       path: '/novo'
-      fullPath: '/admin/usuarios/novo'
-      preLoaderRoute: typeof AdminUsuariosNovoRouteImport
-      parentRoute: typeof AdminUsuariosRoute
+      fullPath: '/pro/treinos/novo'
+      preLoaderRoute: typeof ProTreinosNovoRouteImport
+      parentRoute: typeof ProTreinosRoute
     }
   }
 }
